@@ -1,0 +1,25 @@
+---
+description: After fixes or requested changes, auto-commit and push to GitHub
+alwaysApply: true
+---
+
+# Git — commit et push après correction ou changement
+
+Quand l’utilisateur demande explicitement de **corriger**, **fixer**, **changer**, **implémenter** ou **résoudre** un problème (ou une tâche équivalente sur le code) :
+
+1. **Après** avoir appliqué les modifications dans le dépôt, exécuter **automatiquement** depuis la racine du projet (sans attendre une demande séparée) :
+   ```bash
+   git add .
+   git commit -m "<message court, impératif, décrit le fix ou le changement>"
+   git push
+   ```
+2. Le message de commit doit être **clair** (ex. `fix: footer alignment`, `fix: aurora WebGL init`, `perf: lazy load sections`).
+3. **Ne pas** lancer ce flux si :
+   - l’utilisateur dit explicitement de ne pas committer / ne pas push ;
+   - `git status` n’affiche aucun changement ;
+   - le dossier n’est pas un dépôt Git ;
+   - la commande `git commit` échoue (rien à committer) — dans ce cas, ne pas forcer.
+4. Si `git push` échoue (auth, réseau), **réessayer** une fois si pertinent, puis **expliquer** l’erreur et ce que l’utilisateur doit faire (token GitHub, SSH, etc.).
+5. Sur **PowerShell**, enchaîner avec `;` plutôt qu’avec `&&` si nécessaire.
+
+Objectif : le dépôt GitHub et Netlify restent **à jour** dès qu’une correction demandée est terminée.
