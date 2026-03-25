@@ -1,12 +1,13 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
-import Artists from './components/Artists'
-import Events from './components/Events'
-import Interviews from './components/Interviews'
-import Blog from './components/Blog'
-import Collaborations from './components/Collaborations'
-import Footer from './components/Footer'
+
+const Artists = lazy(() => import('./components/Artists'))
+const Events = lazy(() => import('./components/Events'))
+const Interviews = lazy(() => import('./components/Interviews'))
+const Blog = lazy(() => import('./components/Blog'))
+const Collaborations = lazy(() => import('./components/Collaborations'))
+const Footer = lazy(() => import('./components/Footer'))
 
 function App() {
   useEffect(() => {
@@ -27,14 +28,26 @@ function App() {
         <main className="body-zone">
           <div className="stars-static" aria-hidden="true" />
           <div className="body-zone-content">
-            <Artists />
-            <Events />
-            <Interviews />
-            <Blog />
-            <Collaborations />
+            <Suspense fallback={<div className="lazy-section-fallback" aria-hidden />}>
+              <Artists />
+            </Suspense>
+            <Suspense fallback={<div className="lazy-section-fallback" aria-hidden />}>
+              <Events />
+            </Suspense>
+            <Suspense fallback={<div className="lazy-section-fallback" aria-hidden />}>
+              <Interviews />
+            </Suspense>
+            <Suspense fallback={<div className="lazy-section-fallback" aria-hidden />}>
+              <Blog />
+            </Suspense>
+            <Suspense fallback={<div className="lazy-section-fallback" aria-hidden />}>
+              <Collaborations />
+            </Suspense>
           </div>
         </main>
-        <Footer />
+        <Suspense fallback={<div className="lazy-section-fallback lazy-section-fallback--footer" aria-hidden />}>
+          <Footer />
+        </Suspense>
       </div>
     </div>
   )

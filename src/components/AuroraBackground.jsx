@@ -1,47 +1,100 @@
-import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import React, { useEffect, useRef } from 'react'
 
 const AURORA_PRESETS = {
   subtle: { speed: 0.65, glow: 0.9, contrast: 1.45 },
   cinematic: { speed: 1.0, glow: 1.15, contrast: 1.6 },
   intense: { speed: 1.3, glow: 1.35, contrast: 1.72 },
-};
+}
 
 const AuroraBackground = ({ children, preset = 'cinematic' }) => {
-  const containerRef = useRef(null);
+  const containerRef = useRef(null)
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const container = containerRef.current
+    if (!container) return
+
+    let disposed = false
+    let frameId = 0
+    let idleHandle = null
+    let timeoutHandle = null
+    let renderer = null
+    let geometry = null
+    let material = null
+    let scene = null
+    let camera = null
+
     const getSize = () => ({
       width: container.clientWidth || window.innerWidth,
       height: container.clientHeight || window.innerHeight,
-    });
+    })
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-    const initialSize = getSize();
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setSize(initialSize.width, initialSize.height);
-    renderer.setClearColor(0x0a0e27, 1);
-    container.appendChild(renderer.domElement);
-    const selectedPreset = AURORA_PRESETS[preset] || AURORA_PRESETS.cinematic;
+    const teardown = () => {
+      window.removeEventListener('resize', onResize)
+      if (frameId) cancelAnimationFrame(frameId)
+      frameId = 0
+      if (renderer?.domElement && container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement)
+      }
+      geometry?.dispose()
+      material?.dispose()
+      renderer?.dispose()
+      geometry = null
+      material = null
+      renderer = null
+      scene = null
+      camera = null
+    }
 
-    const material = new THREE.ShaderMaterial({
-      uniforms: {
-        iTime: { value: 0 },
-        iResolution: { value: new THREE.Vector2(initialSize.width, initialSize.height) },
-        uGlow: { value: selectedPreset.glow },
-        uSpeed: { value: selectedPreset.speed },
-        uContrast: { value: selectedPreset.contrast }
-      },
-      vertexShader: `
+    function onResize() {
+      if (!renderer || !material) return
+      const nextSize = getSize()
+      renderer.setSize(nextSize.width, nextSize.height)
+      material.uniforms.iResolution.value.set(nextSize.width, nextSize.height)
+    }
+
+    const init = async () => {
+      const THREE = await import('three')
+      if (disposed || !containerRef.current) return
+
+      const selectedPreset = AURORA_PRESETS[preset] || AURORA_PRESETS.cinematic
+      const narrow = window.innerWidth < 768
+      const maxPr = narrow ? 1.15 : window.innerWidth < 1200 ? 1.45 : 1.75
+
+      scene = new THREE.Scene()
+      camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
+      renderer = new THREE.WebGLRenderer({
+        antialias: !narrow,
+        alpha: false,
+        powerPreference: 'high-performance',
+      })
+
+      const initialSize = getSize()
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxPr))
+      renderer.setSize(initialSize.width, initialSize.height)
+      renderer.setClearColor(0x0a0e27, 1)
+
+      if (disposed) {
+        renderer.dispose()
+        renderer = null
+        return
+      }
+
+      container.appendChild(renderer.domElement)
+
+      material = new THREE.ShaderMaterial({
+        uniforms: {
+          iTime: { value: 0 },
+          iResolution: { value: new THREE.Vector2(initialSize.width, initialSize.height) },
+          uGlow: { value: selectedPreset.glow },
+          uSpeed: { value: selectedPreset.speed },
+          uContrast: { value: selectedPreset.contrast },
+        },
+        vertexShader: `
         void main() {
           gl_Position = vec4(position, 1.0);
         }
       `,
-      fragmentShader: `
+        fragmentShader: `
         uniform float iTime;
         uniform vec2 iResolution;
         uniform float uGlow;
@@ -102,44 +155,49 @@ const AuroraBackground = ({ children, preset = 'cinematic' }) => {
 
           o = tanh(pow(o / 120.0, vec4(uContrast)));
 
-          vec3 base = vec3(0.04, 0.055, 0.16);  // #0a0e27
+          vec3 base = vec3(0.04, 0.055, 0.16);
           vec3 aurora = clamp(o.rgb * uGlow, 0.0, 1.0);
           vec3 finalColor = mix(base, aurora + base * 0.35, 0.7);
           gl_FragColor = vec4(finalColor, 1.0);
         }
-      `
-    });
+      `,
+      })
 
-    const geometry = new THREE.PlaneGeometry(2, 2);
-    const mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+      geometry = new THREE.PlaneGeometry(2, 2)
+      const mesh = new THREE.Mesh(geometry, material)
+      scene.add(mesh)
 
-    let frameId;
-    const animate = () => {
-      material.uniforms.iTime.value += 0.016 * selectedPreset.speed;
-      renderer.render(scene, camera);
-      frameId = requestAnimationFrame(animate);
-    };
-    animate();
+      if (disposed) {
+        teardown()
+        return
+      }
 
-    const handleResize = () => {
-      const nextSize = getSize();
-      renderer.setSize(nextSize.width, nextSize.height);
-      material.uniforms.iResolution.value.set(nextSize.width, nextSize.height);
-    };
-    window.addEventListener('resize', handleResize);
+      const tick = () => {
+        if (disposed || !material || !renderer || !scene || !camera) return
+        material.uniforms.iTime.value += 0.016 * selectedPreset.speed
+        renderer.render(scene, camera)
+        frameId = requestAnimationFrame(tick)
+      }
+      tick()
+
+      window.addEventListener('resize', onResize)
+    }
+
+    if (typeof window.requestIdleCallback === 'function') {
+      idleHandle = window.requestIdleCallback(() => init(), { timeout: 280 })
+    } else {
+      timeoutHandle = window.setTimeout(() => init(), 80)
+    }
 
     return () => {
-      cancelAnimationFrame(frameId);
-      window.removeEventListener('resize', handleResize);
-      if (container && renderer.domElement) {
-        container.removeChild(renderer.domElement);
+      disposed = true
+      if (idleHandle != null && typeof window.cancelIdleCallback === 'function') {
+        window.cancelIdleCallback(idleHandle)
       }
-      geometry.dispose();
-      material.dispose();
-      renderer.dispose();
-    };
-  }, [preset]);
+      if (timeoutHandle != null) clearTimeout(timeoutHandle)
+      teardown()
+    }
+  }, [preset])
 
   return (
     <div
@@ -157,11 +215,9 @@ const AuroraBackground = ({ children, preset = 'cinematic' }) => {
         ref={containerRef}
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0 }}
       />
-      <div style={{ position: 'relative', zIndex: 10 }}>
-        {children}
-      </div>
+      <div style={{ position: 'relative', zIndex: 10 }}>{children}</div>
     </div>
-  );
-};
+  )
+}
 
-export default AuroraBackground;
+export default AuroraBackground

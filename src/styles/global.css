@@ -75,6 +75,15 @@
     z-index: 2;
   }
 
+  .lazy-section-fallback {
+    min-height: 80vh;
+    background: transparent;
+  }
+
+  .lazy-section-fallback--footer {
+    min-height: 12rem;
+  }
+
   .stars-static {
     position: absolute;
     inset: 0;
