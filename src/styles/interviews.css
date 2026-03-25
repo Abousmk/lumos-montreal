@@ -1,0 +1,191 @@
+/* INTERVIEWS SECTION */
+
+.interviews-section {
+    min-height: 100vh;
+    padding: 10rem 0;
+    background: transparent;
+    position: relative;
+  }
+  
+  .interviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    margin-top: 4rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .interview-card {
+    background: var(--midnight-medium);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    text-decoration: none;
+    display: block;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .interview-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
+  }
+  
+  .interview-thumbnail {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+  
+  .thumbnail-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--midnight-light), var(--celestial-accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 0.4s ease;
+  }
+  
+  .interview-card:hover .thumbnail-placeholder {
+    transform: scale(1.05);
+  }
+  
+  .platform-name {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--starlight-white);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .interview-type {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--gold-primary);
+    color: var(--midnight-deep);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    z-index: 2;
+  }
+  
+  .interview-content {
+    padding: 2rem;
+  }
+  
+  .interview-platform {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--gold-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+  
+  .interview-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--starlight-white);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .interview-card:hover .interview-title {
+    color: var(--gold-primary);
+  }
+  
+  .interview-description {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--starlight-subtle);
+    margin-bottom: 1.5rem;
+  }
+  
+  .interview-cta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--gold-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .cta-arrow {
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .interview-card:hover .cta-arrow {
+    transform: translateX(5px);
+  }
+  
+  /* Interviews Note */
+  .interviews-note {
+    margin-top: 4rem;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(212, 175, 55, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+  }
+  
+  .interviews-note p {
+    font-size: 1.125rem;
+    color: var(--starlight-white);
+    margin-bottom: 1rem;
+  }
+  
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    background: transparent;
+    border: 2px solid var(--gold-primary);
+    color: var(--gold-primary);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+  
+  .contact-link:hover {
+    background: var(--gold-primary);
+    color: var(--midnight-deep);
+    transform: translateY(-2px);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .interviews-section {
+      padding: 6rem 0;
+    }
+  
+    .interviews-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  
+    .interview-content {
+      padding: 1.5rem;
+    }
+  
+    .interview-title {
+      font-size: 1.25rem;
+    }
+  
+    .platform-name {
+      font-size: 2rem;
+    }
+  }

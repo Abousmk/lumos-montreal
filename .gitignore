@@ -1,0 +1,18 @@
+# Dependencies
+node_modules
+
+# Build output (Netlify runs npm run build)
+dist
+
+# Local / env
+.env
+.env.*
+*.local
+
+# Logs & cache
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Vite
+.vite

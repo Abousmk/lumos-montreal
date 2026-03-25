@@ -1,0 +1,293 @@
+/* COLLABORATIONS SECTION */
+
+.collaborations-section {
+    min-height: 100vh;
+    padding: 10rem 0;
+    background: transparent;
+    position: relative;
+  }
+  
+  .collaborations-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 4rem;
+    align-items: start;
+  }
+  
+  /* Left Side - Info */
+  .collab-info {
+    position: sticky;
+    top: 8rem;
+  }
+  
+  .collab-info-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--starlight-white);
+    margin-bottom: 2rem;
+  }
+  
+  .collab-info-title .highlight {
+    display: block;
+    background: linear-gradient(135deg, var(--gold-primary), var(--gold-dim));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .collab-info-text {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--starlight-subtle);
+    margin-bottom: 3rem;
+  }
+  
+  .collab-services {
+    margin-bottom: 3rem;
+  }
+  
+  .collab-services h4 {
+    font-size: 1.25rem;
+    color: var(--gold-primary);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+  
+  .collab-services ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .collab-services li {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .collab-services li:last-child {
+    border-bottom: none;
+  }
+  
+  .service-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  .collab-services strong {
+    display: block;
+    color: var(--starlight-white);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+  }
+  
+  .collab-services p {
+    color: var(--starlight-subtle);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+  }
+  
+  .collab-note {
+    padding: 1.5rem;
+    background: rgba(212, 175, 55, 0.1);
+    border-left: 3px solid var(--gold-primary);
+    border-radius: 4px;
+  }
+  
+  .collab-note p {
+    color: var(--starlight-subtle);
+    font-size: 0.875rem;
+    margin: 0;
+    line-height: 1.6;
+  }
+  
+  .collab-note strong {
+    color: var(--gold-primary);
+  }
+  
+  /* Right Side - Form */
+  .collab-form-wrapper {
+    background: var(--midnight-deep);
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+  
+  .collab-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .form-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--starlight-white);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 1rem;
+    background: var(--midnight-medium);
+    border: 2px solid var(--midnight-light);
+    border-radius: 8px;
+    color: var(--starlight-white);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--gold-primary);
+    background: var(--midnight-deep);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  }
+  
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d4af37' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 3rem;
+  }
+  
+  .form-group select option {
+    background: var(--midnight-deep);
+    color: var(--starlight-white);
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+    line-height: 1.6;
+  }
+  
+  .submit-btn {
+    padding: 1.25rem 2.5rem;
+    background: var(--gold-primary);
+    color: var(--midnight-deep);
+    border: none;
+    border-radius: 50px;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .submit-btn:hover {
+    background: var(--starlight-white);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+  }
+  
+  .btn-arrow {
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .submit-btn:hover .btn-arrow {
+    transform: translateX(5px);
+  }
+  
+  /* Success Message */
+  .success-message {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem;
+    background: var(--gold-primary);
+    color: var(--midnight-deep);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 700;
+    animation: successPop 0.5s ease;
+  }
+  
+  @keyframes successPop {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .success-message h3 {
+    font-size: 2rem;
+    color: var(--starlight-white);
+    margin-bottom: 1rem;
+  }
+  
+  .success-message p {
+    font-size: 1.125rem;
+    color: var(--starlight-subtle);
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .collaborations-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  
+    .collab-info {
+      position: static;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .collaborations-section {
+      padding: 6rem 0;
+    }
+  
+    .collab-form-wrapper {
+      padding: 2rem;
+    }
+  
+    .collab-info-title {
+      font-size: 2.5rem;
+    }
+  }
