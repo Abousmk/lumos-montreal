@@ -50,7 +50,7 @@ export function ExpandableCard({
 
             <div className="exp-modalWrap" role="dialog" aria-modal="true" aria-labelledby={`exp-title-${id}`}>
               <div ref={cardRef} className={`exp-modal ${expandedClassName}`}>
-                <div className="exp-modal__media">
+                <div className="exp-modal__media" style={{ '--exp-bg': `url(${src})` }}>
                   <img src={src} alt={title} className="exp-modal__img" loading="eager" decoding="async" />
                   <div className="exp-modal__fade" aria-hidden="true" />
                 </div>
@@ -82,7 +82,7 @@ export function ExpandableCard({
         onClick={() => setActive(true)}
         aria-haspopup="dialog"
       >
-        <div className="exp-card__media">
+        <div className="exp-card__media" style={{ '--exp-bg': `url(${src})` }}>
           <img src={src} alt={title} className="exp-card__img" loading="lazy" decoding="async" />
         </div>
         <div className="exp-card__meta">
