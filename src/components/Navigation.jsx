@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { useLanguage } from '../LanguageContext'
 import '../styles/navigation.css'
 
@@ -7,13 +8,14 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState('')
   const { language, changeLanguage, t } = useLanguage()
   const scrollTicking = useRef(false)
+  const location = useLocation()
 
   const navLinks = [
-    { id: 'artistes', name: t.nav.artists, href: '#artistes' },
-    { id: 'evenements', name: t.nav.events, href: '#evenements' },
-    { id: 'entrevues', name: t.nav.interviews, href: '#entrevues' },
-    { id: 'articles', name: t.nav.articles, href: '#articles' },
-    { id: 'collaborations', name: t.nav.collaborations, href: '#collaborations' },
+    { id: 'home', name: 'Accueil', to: '/' },
+    { id: 'presentation', name: 'Lumos', to: '/univers#presentation' },
+    { id: 'artistes', name: t.nav.artists, to: '/univers#artistes' },
+    { id: 'evenements', name: t.nav.events, to: '/univers#evenements' },
+    { id: 'media', name: 'Médias', to: '/media' },
   ]
 
   useEffect(() => {
@@ -21,17 +23,22 @@ const Navigation = () => {
       setIsScrolled(window.scrollY > 50)
 
       let currentSection = ''
-      for (const sectionId of navLinks.map((l) => l.id)) {
-        const element = document.getElementById(sectionId)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          const isVisible =
-            rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2
-          if (isVisible) {
-            currentSection = sectionId
-            break
+      if (location.pathname === '/univers') {
+        for (const sectionId of ['presentation', 'artistes', 'evenements']) {
+          const element = document.getElementById(sectionId)
+          if (element) {
+            const rect = element.getBoundingClientRect()
+            const isVisible =
+              rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2
+            if (isVisible) {
+              currentSection = sectionId
+              break
+            }
           }
         }
+      } else {
+        currentSection =
+          location.pathname === '/' ? 'home' : location.pathname === '/media' ? 'media' : ''
       }
       setActiveSection(currentSection)
       scrollTicking.current = false
@@ -47,13 +54,17 @@ const Navigation = () => {
     updateFromScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [location.pathname])
+
+  useEffect(() => {
+    if (!location.hash) return
+    const id = location.hash.replace('#', '')
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [location.hash, location.pathname])
 
   const getVisibleLinks = () => {
-    if (!activeSection) return navLinks
-    const activeIndex = navLinks.findIndex((link) => link.id === activeSection)
-    if (activeIndex === -1) return navLinks
-    return navLinks.slice(activeIndex + 1)
+    return navLinks
   }
 
   const visibleLinks = getVisibleLinks()
@@ -62,21 +73,20 @@ const Navigation = () => {
     <>
       <nav className={`navigation ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
-          <a href="#home" className="nav-logo">
+          <Link to="/" className="nav-logo" aria-label="Accueil">
             lumos
             <span className="logo-location">montréal</span>
-          </a>
+          </Link>
 
           <div className="nav-links-desktop">
-            {navLinks.map((link) => (
-              <a
-                key={link.id}
-                href={link.href}
-                className={`nav-link ${activeSection === link.id ? 'active' : ''}`}
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.id
+              return (
+                <Link key={link.id} to={link.to} className={`nav-link ${isActive ? 'active' : ''}`}>
+                  {link.name}
+                </Link>
+              )
+            })}
           </div>
 
           <div className="nav-right">
@@ -108,15 +118,15 @@ const Navigation = () => {
       {visibleLinks.length > 0 && (
         <div className="nav-mobile-vertical">
           {visibleLinks.map((link, index) => (
-            <a
+            <Link
               key={link.id}
-              href={link.href}
+              to={link.to}
               className="nav-mobile-link"
               style={{ animationDelay: `${0.06 + index * 0.07}s` }}
             >
               <span className="nav-mobile-dot" />
               <span className="nav-mobile-text">{link.name}</span>
-            </a>
+            </Link>
           ))}
         </div>
       )}

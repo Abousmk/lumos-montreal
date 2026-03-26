@@ -1,53 +1,53 @@
 import '../styles/artists.css'
+import { ExpandableCard } from './ui/ExpandableCard'
 
 const Artists = () => {
-  const artists = [
+  const soloArtists = [
     {
       id: 'kama',
       name: 'KaMa',
       tag: 'Booking & Management',
       subtitle: "L'Existentialisme Noir",
       bio: "Rappeur montréalais originaire de la RD Congo, reconnu pour sa maîtrise technique et son écriture incisive qui mêle récits d'immigration, commentaire social et références sociopolitiques.",
-      achievements: [
-        'Nomination Gala Dynastie 2025',
-        'Double représentation Francofolies 2025',
-        '35 prestations live, 25 relais médiatiques',
-      ],
+      achievements: ['Nomination Gala Dynastie 2025', 'Double représentation Francofolies 2025', '35 prestations live, 25 relais médiatiques'],
       link: 'https://linktr.ee/quatrelettres',
-      image: '/images/kama.jpg',
+      image: '/images/Kama.jpg',
     },
+  ]
+
+  const groups = [
     {
       id: 'appart',
-      name: 'COLLECTIF APPART',
+      name: 'Collectif APPART',
       tag: 'Booking & Assistance',
       subtitle: 'Huit talents sénégalais unis',
       bio: "Collectif montréalais créé en 2018, transformant un appartement en sanctuaire créatif. Introspection, technique, mélodie et storytelling.",
-      members: [
-        { name: 'Barto Bart', style: 'Rap caviar - Punchlines poétiques' },
-        { name: 'Hakey Law', style: 'Mélancolie meets égo-trap' },
-        { name: 'Kyūsei', style: 'Polyvalence rap, trap, afro' },
-        { name: 'DAMNIBRA', style: 'Sonorités cloud, rythmiques ouest-africaines' },
-        { name: 'Ngoundieu', style: 'Hip-hop rétro fusionné au moderne' },
-        { name: 'LIL DEEZY', style: 'Sénégalo-canadien bilingue' },
-        { name: 'A.L.O.N.E', style: 'Plume introspective, amour et tristesse' },
-      ],
       link: 'https://linktr.ee/appart',
-      image: '/images/appart.jpg',
+      image: '/images/Appart.JPG',
+      members: [
+        { id: 'hakeylaw', name: 'Hakey Law', role: 'Artiste', image: '/images/Hakey Law.jpeg' },
+        { id: 'kyusei', name: 'Kyūsei', role: 'Artiste', image: '/images/Kyusei.jpg' },
+        { id: 'damnibra', name: 'DAMNIBRA', role: 'Artiste & Producteur', image: '/images/DamnIbra.jpeg' },
+        { id: 'ngoundieu', name: 'Ngoundieu', role: 'Artiste', image: '/images/Ngoundieu.jpg' },
+        { id: 'lildeezy', name: 'LIL DEEZY', role: 'Artiste', image: '/images/Lil Deezy.jpeg' },
+        { id: 'alone', name: 'A.L.O.N.E', role: 'Artiste', image: '/images/Alone.jpg' },
+      ],
+      note: "Les liens Linktree individuels seront ajoutés dès réception.",
     },
     {
       id: 'ssk',
-      name: 'COLLECTIF SSK',
+      name: 'Collectif SSK',
       tag: 'SouthSyKemet',
       subtitle: 'Héros de la Rive-Sud',
       bio: "Établi sur la Rive-Sud de Montréal, SSK représente l'acharnement, la détermination et le rêve. Une table ronde inspirée du Sud des États-Unis.",
-      trinity: [
-        { name: 'ORUNMILA', role: 'La partie Divine', color: 'Bleu 🔵' },
-        { name: 'FIRELOX/ESHU', role: "La partie de l'Ombre", color: 'Rouge 🔴' },
-        { name: 'MURASAKI', role: "L'Union des extrêmes", color: 'Mauve 🟣' },
-      ],
-      quote: 'Cette table ronde qui vous semble si loin, vous y avez votre place!',
       link: 'https://linktr.ee/southsykemet',
-      image: '/images/ssk.jpg',
+      image: '/images/Groupe2.jpg',
+      members: [
+        { id: 'orunmila', name: 'ORUNMILA', role: 'La partie Divine', image: '/images/ORUNMILA.JPG' },
+        { id: 'firelox', name: 'FIRELOX/ESHU', role: "La partie de l'Ombre", image: '/images/FIRELOX_ESHU.jpg' },
+        { id: 'murasaki', name: 'MURASAKI', role: "L'Union des extrêmes", image: '/images/MURASAKI.jpg' },
+      ],
+      note: "Les liens Linktree individuels seront ajoutés dès réception.",
     },
   ]
 
@@ -61,14 +61,14 @@ const Artists = () => {
         </div>
 
         <div className="artists-grid">
-          {artists.map((artist, index) => (
+          {soloArtists.map((artist, index) => (
             <div
               key={artist.id}
               className="artist-card lumos-reveal"
-              style={{ animationDelay: `${0.08 + index * 0.1}s` }}
+              style={{ animationDelay: `${0.08 + index * 0.08}s` }}
             >
               <div className="artist-image">
-                <div className="image-placeholder">{artist.name}</div>
+                <img className="artist-photo" src={artist.image} alt={artist.name} loading="lazy" decoding="async" />
               </div>
 
               <div className="artist-content">
@@ -85,37 +85,45 @@ const Artists = () => {
                   </ul>
                 )}
 
-                {artist.members && (
-                  <div className="artist-members">
-                    <h4>Membres:</h4>
-                    {artist.members.map((member, i) => (
-                      <div key={i} className="member-item">
-                        <strong>{member.name}</strong> - {member.style}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {artist.trinity && (
-                  <div className="artist-trinity">
-                    {artist.trinity.map((person, i) => (
-                      <div key={i} className="trinity-item">
-                        <strong>{person.name}</strong> - {person.role} ({person.color})
-                      </div>
-                    ))}
-                    {artist.quote && <blockquote className="artist-quote">"{artist.quote}"</blockquote>}
-                  </div>
-                )}
-
-                <a
-                  href={artist.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="artist-link artist-listen-btn"
-                >
+                <a href={artist.link} target="_blank" rel="noopener noreferrer" className="artist-link artist-listen-btn">
                   Écouter →
                 </a>
               </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="artist-groups">
+          {groups.map((group, index) => (
+            <div key={group.id} className="lumos-reveal" style={{ animationDelay: `${0.12 + index * 0.1}s` }}>
+              <ExpandableCard title={group.name} src={group.image} description={group.subtitle}>
+                <div className="group-expanded">
+                  <div className="group-expanded__head">
+                    <p className="group-expanded__tag">{group.tag}</p>
+                    <p className="group-expanded__bio">{group.bio}</p>
+                    <div className="group-expanded__actions">
+                      <a href={group.link} target="_blank" rel="noopener noreferrer" className="group-link">
+                        Découvrir le collectif →
+                      </a>
+                    </div>
+                    {group.note && <p className="group-expanded__note">{group.note}</p>}
+                  </div>
+
+                  <div className="group-members-grid">
+                    {group.members.map((m) => (
+                      <div key={m.id} className="member-card">
+                        <div className="member-card__imgWrap">
+                          <img src={m.image} alt={m.name} loading="lazy" decoding="async" />
+                        </div>
+                        <div className="member-card__body">
+                          <div className="member-card__name">{m.name}</div>
+                          <div className="member-card__role">{m.role}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </ExpandableCard>
             </div>
           ))}
         </div>

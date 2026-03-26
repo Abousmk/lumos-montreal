@@ -48,6 +48,13 @@
     max-width: 900px;
     margin: 0 auto;
   }
+
+  .artist-groups {
+    max-width: 900px;
+    margin: 3.25rem auto 0;
+    display: grid;
+    gap: 1.25rem;
+  }
   
   .artist-card {
     background: var(--midnight-deep);
@@ -85,6 +92,15 @@
     overflow: hidden;
     position: relative;
   }
+
+  .artist-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.02);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
   
   .image-placeholder {
     width: 100%;
@@ -117,6 +133,101 @@
   
   .artist-card:hover .image-placeholder::after {
     transform: translateX(100%);
+  }
+
+  .artist-card:hover .artist-photo {
+    transform: scale(1.07);
+    filter: brightness(1.05);
+  }
+
+  .group-expanded__tag {
+    margin: 0 0 0.6rem;
+    color: var(--gold-primary);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  .group-expanded__bio {
+    margin: 0;
+    color: var(--starlight-subtle);
+    line-height: 1.8;
+    font-size: 1rem;
+  }
+
+  .group-expanded__actions {
+    margin-top: 1rem;
+  }
+
+  .group-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 999px;
+    border: 2px solid var(--gold-primary);
+    color: var(--gold-primary);
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.25s ease;
+  }
+
+  .group-link:hover {
+    background: var(--gold-primary);
+    color: var(--midnight-deep);
+    transform: translateY(-2px);
+  }
+
+  .group-expanded__note {
+    margin: 0.75rem 0 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .group-members-grid {
+    margin-top: 1.25rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .member-card {
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .member-card__imgWrap {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(45, 74, 124, 0.35), rgba(74, 111, 165, 0.2));
+  }
+
+  .member-card__imgWrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.01);
+  }
+
+  .member-card__body {
+    padding: 0.9rem 1rem 1.05rem;
+  }
+
+  .member-card__name {
+    font-weight: 800;
+    color: var(--starlight-white);
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  .member-card__role {
+    margin-top: 0.35rem;
+    color: var(--starlight-subtle);
+    font-size: 0.9rem;
   }
   
   .artist-content {
@@ -276,5 +387,9 @@
   
     .artist-name {
       font-size: 2rem;
+    }
+
+    .group-members-grid {
+      grid-template-columns: 1fr;
     }
   }

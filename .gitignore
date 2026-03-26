@@ -16,3 +16,6 @@ Thumbs.db
 
 # Vite
 .vite
+
+# Raw source images (keep only /public/images in git)
+images/
