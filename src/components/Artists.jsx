@@ -1,53 +1,119 @@
+import { useState } from 'react'
 import '../styles/artists.css'
 import { ExpandableCard } from './ui/ExpandableCard'
 
 const Artists = () => {
-  const soloArtists = [
+  const [view, setView] = useState('artists')
+
+  const artists = [
     {
       id: 'kama',
       name: 'KaMa',
-      tag: 'Booking & Management',
       subtitle: "L'Existentialisme Noir",
-      bio: "Rappeur montréalais originaire de la RD Congo, reconnu pour sa maîtrise technique et son écriture incisive qui mêle récits d'immigration, commentaire social et références sociopolitiques.",
-      achievements: ['Nomination Gala Dynastie 2025', 'Double représentation Francofolies 2025', '35 prestations live, 25 relais médiatiques'],
-      link: 'https://linktr.ee/quatrelettres',
       image: '/images/Kama.jpg',
+      link: 'https://linktr.ee/quatrelettres',
+      bio: "Rappeur montréalais reconnu pour sa technique incisive et ses récits d'immigration. Figure majeure de la scène émergente montréalaise.",
+      group: 'Lumos',
+    },
+    {
+      id: 'hakey-law',
+      name: 'Hakey Law',
+      subtitle: 'Collectif APPART',
+      image: '/images/hakey-law.jpg',
+      link: 'https://linktr.ee/appart',
+      bio: 'Visionnaire du texte, mélange introspection et ego-trap dans une énergie singulière.',
+      group: 'APPART',
+    },
+    {
+      id: 'kyusei',
+      name: 'Kyūsei',
+      subtitle: 'Collectif APPART',
+      image: '/images/Kyusei.jpg',
+      link: 'https://linktr.ee/appart',
+      bio: 'Polyvalent et créatif, il fusionne rap, trap et afro dans un univers authentique.',
+      group: 'APPART',
+    },
+    {
+      id: 'damnibra',
+      name: 'DAMNIBRA',
+      subtitle: 'Collectif APPART',
+      image: '/images/damnibra.jpg',
+      link: 'https://linktr.ee/appart',
+      bio: 'Artiste et producteur à la direction créative marquée, entre cloud et influences afro.',
+      group: 'APPART',
+    },
+    {
+      id: 'ngoundieu',
+      name: 'Ngoundieu',
+      subtitle: 'Collectif APPART',
+      image: '/images/Ngoundieu.jpg',
+      link: 'https://linktr.ee/appart',
+      bio: 'Rappeur montréalais qui marie hip-hop rétro et modernité avec une plume authentique.',
+      group: 'APPART',
+    },
+    {
+      id: 'lil-deezy',
+      name: 'LIL DEEZY',
+      subtitle: 'Collectif APPART',
+      image: '/images/lil-deezy.jpg',
+      link: 'https://linktr.ee/appart',
+      bio: 'Artiste sénégalo-canadien bilingue, entre rythmes modernes et énergie scénique brute.',
+      group: 'APPART',
+    },
+    {
+      id: 'alone',
+      name: 'A.L.O.N.E',
+      subtitle: 'Collectif APPART',
+      image: '/images/Alone.jpg',
+      link: 'https://linktr.ee/appart',
+      bio: 'Plume introspective, ses textes explorent la solitude, le doute et la résilience.',
+      group: 'APPART',
+    },
+    {
+      id: 'orunmila',
+      name: 'ORUNMILA',
+      subtitle: 'Collectif SSK',
+      image: '/images/ORUNMILA.JPG',
+      link: 'https://linktr.ee/southsykemet',
+      bio: 'La partie Divine de la trinité SSK, portée par une présence scénique magnétique.',
+      group: 'SSK',
+    },
+    {
+      id: 'firelox-eshu',
+      name: 'FIRELOX / ESHU',
+      subtitle: 'Collectif SSK',
+      image: '/images/firelox-eshu.jpg',
+      link: 'https://linktr.ee/southsykemet',
+      bio: "La partie Ombre de SSK, une identité affirmée et une énergie frontale sur scène.",
+      group: 'SSK',
+    },
+    {
+      id: 'murasaki',
+      name: 'MURASAKI',
+      subtitle: 'Collectif SSK',
+      image: '/images/MURASAKI.jpg',
+      link: 'https://linktr.ee/southsykemet',
+      bio: "L'union des extrêmes, une approche artistique hybride entre intensité et finesse.",
+      group: 'SSK',
     },
   ]
 
-  const groups = [
+  const collectifs = [
     {
-      id: 'appart',
+      id: 'collectif-appart',
       name: 'Collectif APPART',
-      tag: 'Booking & Assistance',
-      subtitle: 'Huit talents sénégalais unis',
-      bio: "Collectif montréalais créé en 2018, transformant un appartement en sanctuaire créatif. Introspection, technique, mélodie et storytelling.",
-      link: 'https://linktr.ee/appart',
+      subtitle: 'Booking & Assistance',
       image: '/images/Appart.JPG',
-      members: [
-        { id: 'hakeylaw', name: 'Hakey Law', role: 'Artiste', image: '/images/Hakey Law.jpeg' },
-        { id: 'kyusei', name: 'Kyūsei', role: 'Artiste', image: '/images/Kyusei.jpg' },
-        { id: 'damnibra', name: 'DAMNIBRA', role: 'Artiste & Producteur', image: '/images/DamnIbra.jpeg' },
-        { id: 'ngoundieu', name: 'Ngoundieu', role: 'Artiste', image: '/images/Ngoundieu.jpg' },
-        { id: 'lildeezy', name: 'LIL DEEZY', role: 'Artiste', image: '/images/Lil Deezy.jpeg' },
-        { id: 'alone', name: 'A.L.O.N.E', role: 'Artiste', image: '/images/Alone.jpg' },
-      ],
-      note: "Les liens Linktree individuels seront ajoutés dès réception.",
+      link: 'https://linktr.ee/appart',
+      bio: 'Collectif montréalais né en 2018, APPART rassemble des artistes aux univers variés autour d’une identité commune et d’une synergie forte.',
     },
     {
-      id: 'ssk',
+      id: 'collectif-ssk',
       name: 'Collectif SSK',
-      tag: 'SouthSyKemet',
-      subtitle: 'Héros de la Rive-Sud',
-      bio: "Établi sur la Rive-Sud de Montréal, SSK représente l'acharnement, la détermination et le rêve. Une table ronde inspirée du Sud des États-Unis.",
+      subtitle: 'SouthSyKemet',
+      image: '/images/groupe-2.jpg',
       link: 'https://linktr.ee/southsykemet',
-      image: '/images/Groupe2.jpg',
-      members: [
-        { id: 'orunmila', name: 'ORUNMILA', role: 'La partie Divine', image: '/images/ORUNMILA.JPG' },
-        { id: 'firelox', name: 'FIRELOX/ESHU', role: "La partie de l'Ombre", image: '/images/FIRELOX_ESHU.jpg' },
-        { id: 'murasaki', name: 'MURASAKI', role: "L'Union des extrêmes", image: '/images/MURASAKI.jpg' },
-      ],
-      note: "Les liens Linktree individuels seront ajoutés dès réception.",
+      bio: 'SSK représente la vision et la détermination de la Rive-Sud. Une trinité artistique portée par ORUNMILA, FIRELOX/ESHU et MURASAKI.',
     },
   ]
 
@@ -60,73 +126,59 @@ const Artists = () => {
           <p className="section-subtitle">Représentant la scène émergente montréalaise</p>
         </div>
 
-        <div className="artists-grid">
-          {soloArtists.map((artist, index) => (
-            <div
-              key={artist.id}
-              className="artist-card lumos-reveal"
-              style={{ animationDelay: `${0.08 + index * 0.08}s` }}
-            >
-              <div className="artist-image">
-                <img className="artist-photo" src={artist.image} alt={artist.name} loading="lazy" decoding="async" />
-              </div>
-
-              <div className="artist-content">
-                <span className="artist-tag">{artist.tag}</span>
-                <h3 className="artist-name">{artist.name}</h3>
-                <p className="artist-subtitle">{artist.subtitle}</p>
-                <p className="artist-bio">{artist.bio}</p>
-
-                {artist.achievements && (
-                  <ul className="artist-achievements">
-                    {artist.achievements.map((achievement, i) => (
-                      <li key={i}>{achievement}</li>
-                    ))}
-                  </ul>
-                )}
-
-                <a href={artist.link} target="_blank" rel="noopener noreferrer" className="artist-link artist-listen-btn">
-                  Écouter →
-                </a>
-              </div>
-            </div>
-          ))}
+        <div className="artists-mini-nav lumos-reveal" style={{ animationDelay: '0.04s' }}>
+          <button
+            type="button"
+            className={`artists-mini-btn ${view === 'artists' ? 'active' : ''}`}
+            onClick={() => setView('artists')}
+          >
+            Artistes
+          </button>
+          <button
+            type="button"
+            className={`artists-mini-btn ${view === 'collectifs' ? 'active' : ''}`}
+            onClick={() => setView('collectifs')}
+          >
+            Collectifs
+          </button>
         </div>
 
-        <div className="artist-groups">
-          {groups.map((group, index) => (
-            <div key={group.id} className="lumos-reveal" style={{ animationDelay: `${0.12 + index * 0.1}s` }}>
-              <ExpandableCard title={group.name} src={group.image} description={group.subtitle}>
-                <div className="group-expanded">
-                  <div className="group-expanded__head">
-                    <p className="group-expanded__tag">{group.tag}</p>
-                    <p className="group-expanded__bio">{group.bio}</p>
-                    <div className="group-expanded__actions">
-                      <a href={group.link} target="_blank" rel="noopener noreferrer" className="group-link">
-                        Découvrir le collectif →
-                      </a>
-                    </div>
-                    {group.note && <p className="group-expanded__note">{group.note}</p>}
+        {view === 'artists' ? (
+          <div className="artist-cards-grid">
+            {artists.map((artist, index) => (
+              <div key={artist.id} className="lumos-reveal" style={{ animationDelay: `${0.05 + index * 0.04}s` }}>
+                <ExpandableCard
+                  title={artist.name}
+                  src={artist.image}
+                  description={`${artist.subtitle} • ${artist.group}`}
+                  className="exp-card--tile"
+                >
+                  <div className="artist-expand-content">
+                    <p>{artist.bio}</p>
+                    <a href={artist.link} target="_blank" rel="noopener noreferrer" className="group-link">
+                      Linktree →
+                    </a>
                   </div>
-
-                  <div className="group-members-grid">
-                    {group.members.map((m) => (
-                      <div key={m.id} className="member-card">
-                        <div className="member-card__imgWrap">
-                          <img src={m.image} alt={m.name} loading="lazy" decoding="async" />
-                        </div>
-                        <div className="member-card__body">
-                          <div className="member-card__name">{m.name}</div>
-                          <div className="member-card__role">{m.role}</div>
-                        </div>
-                      </div>
-                    ))}
+                </ExpandableCard>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="artist-cards-grid">
+            {collectifs.map((group, index) => (
+              <div key={group.id} className="lumos-reveal" style={{ animationDelay: `${0.06 + index * 0.08}s` }}>
+                <ExpandableCard title={group.name} src={group.image} description={group.subtitle} className="exp-card--tile">
+                  <div className="artist-expand-content">
+                    <p>{group.bio}</p>
+                    <a href={group.link} target="_blank" rel="noopener noreferrer" className="group-link">
+                      Linktree du collectif →
+                    </a>
                   </div>
-                </div>
-              </ExpandableCard>
-            </div>
-          ))}
-        </div>
+                </ExpandableCard>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

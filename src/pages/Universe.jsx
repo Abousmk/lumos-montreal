@@ -35,7 +35,7 @@ export default function Universe() {
             <div className="universe-intro__media lumos-reveal" style={{ animationDelay: '0.1s' }}>
               <div className="universe-intro__imageWrap">
                 <img
-                  src="/images/Cover.jpeg"
+                  src="/images/cover.jpg"
                   alt="Cover du projet OIABM:GEMINI"
                   loading="eager"
                   decoding="async"

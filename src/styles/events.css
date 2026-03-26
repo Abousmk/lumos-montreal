@@ -1,7 +1,7 @@
 /* EVENTS SECTION */
 
 .events-section {
-    min-height: 100vh;
+    min-height: auto;
     padding: 10rem 0;
     background: transparent;
     position: relative;
@@ -45,7 +45,7 @@
   
   /* Events Group */
   .events-group {
-    margin-bottom: 6rem;
+    margin-bottom: 3rem;
   }
   
   .events-group-title {
@@ -145,8 +145,8 @@
   
   /* Past events — timeline compacte */
   .past-events-section {
-    margin-top: 2rem;
-    margin-bottom: 4rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .timeline-container {
