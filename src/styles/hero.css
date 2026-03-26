@@ -19,6 +19,14 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  --hx: 50%;
+  --hy: 50%;
+  --tx1: 0px;
+  --ty1: 0px;
+  --rot1: 0deg;
+  --tx2: 0px;
+  --ty2: 0px;
+  --rot2: 0deg;
   background: linear-gradient(
     135deg,
     #0a0e27 0%,
@@ -131,10 +139,75 @@
   z-index: 1;
 }
 
+/* Halo radial réactif au touch/mouse (JS -> vars CSS) */
+.hero-pointer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    700px circle at var(--hx) var(--hy),
+    rgba(212, 175, 55, 0.18),
+    transparent 55%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+/* Photos "cover" flottantes */
+.hero-groups {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-group {
+  position: absolute;
+  width: clamp(180px, 22vw, 280px);
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+  filter: saturate(1.05) contrast(1.03);
+  transform: translate3d(0, 0, 0);
+  transition: filter 0.2s ease;
+  opacity: 0.95;
+}
+
+.hero-group-1 {
+  left: 10%;
+  top: 18%;
+  z-index: 1;
+  transform: translate3d(var(--tx1), var(--ty1), 0) rotate(var(--rot1));
+}
+
+.hero-group-2 {
+  left: 56%;
+  top: 32%;
+  z-index: 1;
+  width: clamp(160px, 20vw, 240px);
+  transform: translate3d(var(--tx2), var(--ty2), 0) rotate(var(--rot2));
+}
+
+.hero:hover .hero-group {
+  filter: saturate(1.12) contrast(1.08);
+}
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: clamp(2.5rem, 12vw, 4rem);
     margin-bottom: 1.5rem;
+  }
+
+  .hero-group-1 {
+    left: 6%;
+    top: 28%;
+  }
+
+  .hero-group-2 {
+    left: 48%;
+    top: 42%;
   }
 }
 
@@ -153,5 +226,13 @@
   .hero-subtitle {
     animation: none;
     opacity: 1;
+  }
+
+  .hero-pointer {
+    opacity: 0.6;
+  }
+
+  .hero-group {
+    transform: none !important;
   }
 }
