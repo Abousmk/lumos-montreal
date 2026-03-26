@@ -3,6 +3,7 @@ import '../styles/events.css'
 
 const Events = () => {
   const [filter, setFilter] = useState('all') // all, lumos, collab
+  const [showAllPast, setShowAllPast] = useState(false)
 
   const events = [
     // ÉVÉNEMENTS LUMOS
@@ -225,6 +226,7 @@ const Events = () => {
 
   const upcomingEvents = filteredEvents.filter(e => e.status === 'upcoming')
   const pastEvents = filteredEvents.filter(e => e.status === 'past')
+  const visiblePastEvents = pastEvents.slice(0, showAllPast ? pastEvents.length : 4)
 
   return (
     <section id="evenements" className="events-section">
@@ -278,26 +280,49 @@ const Events = () => {
           </div>
         )}
 
-        {/* Événements passés */}
+        {/* Événements passés — timeline compacte */}
         {pastEvents.length > 0 && (
-          <div className="events-group">
+          <div className="past-events-section">
             <h3 className="events-group-title">Événements Passés</h3>
-            <div className="events-timeline">
-              {pastEvents.map((event, index) => (
+
+            <div className="timeline-container">
+              <div className="timeline-line" aria-hidden="true" />
+
+              {visiblePastEvents.map((event, index) => (
                 <div
                   key={event.id}
                   className={`timeline-item lumos-reveal ${event.type}`}
-                  style={{ animationDelay: `${0.04 + index * 0.04}s` }}
+                  style={{ animationDelay: `${0.06 + index * 0.05}s` }}
                 >
-                  <div className="timeline-marker" />
-                  <div className="timeline-content">
-                    <span className="timeline-date">{event.date}</span>
-                    <h5 className="timeline-title">{event.title}</h5>
-                    <p className="timeline-description">{event.description}</p>
+                  <div className="timeline-dot" aria-hidden="true" />
+                  <div className="timeline-item-inner">
+                    <div className="timeline-date">{event.date}</div>
+                    <div className="timeline-content">
+                      <h4 className="timeline-title">{event.title}</h4>
+                      <p className="timeline-location">
+                        {event.type === 'lumos' ? 'Lumos' : 'Événement collaboratif'}
+                      </p>
+                      {event.description && (
+                        <p className="timeline-description">{event.description}</p>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
+
+            {pastEvents.length > 4 && (
+              <button
+                type="button"
+                className="timeline-show-more"
+                onClick={() => setShowAllPast(!showAllPast)}
+                aria-expanded={showAllPast}
+              >
+                {showAllPast
+                  ? 'Voir moins'
+                  : `Voir ${pastEvents.length - 4} événements de plus`}
+              </button>
+            )}
           </div>
         )}
       </div>

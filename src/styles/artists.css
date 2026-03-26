@@ -66,6 +66,7 @@
     opacity: 0;
     transition: opacity 0.5s ease;
     z-index: 0;
+    pointer-events: none;
   }
   
   .artist-card:hover {
@@ -120,6 +121,8 @@
   
   .artist-content {
     padding: 2.5rem;
+    position: relative;
+    z-index: 1;
   }
   
   .artist-tag {
@@ -230,7 +233,8 @@
     line-height: 1.6;
   }
   
-  .artist-link {
+  .artist-link,
+  .artist-listen-btn {
     display: inline-block;
     margin-top: 1.5rem;
     padding: 1rem 2.5rem;
@@ -242,9 +246,14 @@
     font-weight: 600;
     font-size: 0.95rem;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
+    cursor: pointer;
   }
   
-  .artist-link:hover {
+  .artist-link:hover,
+  .artist-listen-btn:hover {
     background: var(--gold-primary);
     color: var(--midnight-deep);
     transform: translateY(-2px);

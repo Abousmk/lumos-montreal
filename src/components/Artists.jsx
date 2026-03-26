@@ -107,7 +107,12 @@ const Artists = () => {
                   </div>
                 )}
 
-                <a href={artist.link} target="_blank" rel="noopener noreferrer" className="artist-link">
+                <a
+                  href={artist.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="artist-link artist-listen-btn"
+                >
                   Écouter →
                 </a>
               </div>
