@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import '../../styles/expandable-card.css'
 
 export function ExpandableCard({
@@ -42,36 +43,38 @@ export function ExpandableCard({
 
   return (
     <>
-      {active && (
-        <div className="exp-overlay" aria-hidden="true" />
-      )}
+      {active &&
+        createPortal(
+          <>
+            <div className="exp-overlay" aria-hidden="true" />
 
-      {active && (
-        <div className="exp-modalWrap" role="dialog" aria-modal="true" aria-labelledby={`exp-title-${id}`}>
-          <div ref={cardRef} className={`exp-modal ${expandedClassName}`}>
-            <div className="exp-modal__media">
-              <img src={src} alt={title} className="exp-modal__img" loading="eager" decoding="async" />
-              <div className="exp-modal__fade" aria-hidden="true" />
-            </div>
-
-            <div className="exp-modal__body">
-              <div className="exp-modal__header">
-                <div className="exp-modal__headCopy">
-                  <p className="exp-modal__desc">{description}</p>
-                  <h3 id={`exp-title-${id}`} className="exp-modal__title">
-                    {title}
-                  </h3>
+            <div className="exp-modalWrap" role="dialog" aria-modal="true" aria-labelledby={`exp-title-${id}`}>
+              <div ref={cardRef} className={`exp-modal ${expandedClassName}`}>
+                <div className="exp-modal__media">
+                  <img src={src} alt={title} className="exp-modal__img" loading="eager" decoding="async" />
+                  <div className="exp-modal__fade" aria-hidden="true" />
                 </div>
-                <button type="button" className="exp-close" onClick={() => setActive(false)} aria-label="Fermer">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
 
-              <div className="exp-modal__content">{children}</div>
+                <div className="exp-modal__body">
+                  <div className="exp-modal__header">
+                    <div className="exp-modal__headCopy">
+                      <p className="exp-modal__desc">{description}</p>
+                      <h3 id={`exp-title-${id}`} className="exp-modal__title">
+                        {title}
+                      </h3>
+                    </div>
+                    <button type="button" className="exp-close" onClick={() => setActive(false)} aria-label="Fermer">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div className="exp-modal__content">{children}</div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </>,
+          document.body,
+        )}
 
       <button
         type="button"
