@@ -13,6 +13,11 @@ const Artists = () => {
       image: '/images/kama.webp',
       link: 'https://linktr.ee/quatrelettres',
       bio: "Rappeur montréalais reconnu pour sa technique incisive et ses récits d'immigration. Figure majeure de la scène émergente montréalaise.",
+      accomplishments: [
+        'Nomination Gala Dynastie 2025',
+        'Double représentation Francofolies 2025',
+        '35 prestations live et 25 relais médiatiques',
+      ],
       group: 'Lumos',
     },
     {
@@ -22,6 +27,7 @@ const Artists = () => {
       image: '/images/hakey-law.webp',
       link: 'https://linktr.ee/appart',
       bio: 'Visionnaire du texte, mélange introspection et ego-trap dans une énergie singulière.',
+      accomplishments: ['Membre du Collectif APPART', 'Présence scénique remarquée à Montréal'],
       group: 'APPART',
     },
     {
@@ -31,6 +37,7 @@ const Artists = () => {
       image: '/images/ky-sei.webp',
       link: 'https://linktr.ee/appart',
       bio: 'Polyvalent et créatif, il fusionne rap, trap et afro dans un univers authentique.',
+      accomplishments: ['Membre du Collectif APPART', 'Approche musicale hybride rap/trap/afro'],
       group: 'APPART',
     },
     {
@@ -40,6 +47,7 @@ const Artists = () => {
       image: '/images/damnibra.webp',
       link: 'https://linktr.ee/appart',
       bio: 'Artiste et producteur à la direction créative marquée, entre cloud et influences afro.',
+      accomplishments: ['Membre du Collectif APPART', 'Artiste & producteur'],
       group: 'APPART',
     },
     {
@@ -49,6 +57,7 @@ const Artists = () => {
       image: '/images/ngoundieu.webp',
       link: 'https://linktr.ee/appart',
       bio: 'Rappeur montréalais qui marie hip-hop rétro et modernité avec une plume authentique.',
+      accomplishments: ['Membre du Collectif APPART', 'Style rétro-moderne distinctif'],
       group: 'APPART',
     },
     {
@@ -58,6 +67,7 @@ const Artists = () => {
       image: '/images/lil-deezy.webp',
       link: 'https://linktr.ee/appart',
       bio: 'Artiste sénégalo-canadien bilingue, entre rythmes modernes et énergie scénique brute.',
+      accomplishments: ['Membre du Collectif APPART', 'Énergie live reconnue'],
       group: 'APPART',
     },
     {
@@ -67,6 +77,7 @@ const Artists = () => {
       image: '/images/alone.webp',
       link: 'https://linktr.ee/appart',
       bio: 'Plume introspective, ses textes explorent la solitude, le doute et la résilience.',
+      accomplishments: ['Membre du Collectif APPART', 'Écriture introspective'],
       group: 'APPART',
     },
     {
@@ -76,6 +87,7 @@ const Artists = () => {
       image: '/images/orunmila.webp',
       link: 'https://linktr.ee/southsykemet',
       bio: 'La partie Divine de la trinité SSK, portée par une présence scénique magnétique.',
+      accomplishments: ['Collectif SSK', 'Partie Divine'],
       group: 'SSK',
     },
     {
@@ -85,6 +97,7 @@ const Artists = () => {
       image: '/images/firelox-eshu.webp',
       link: 'https://linktr.ee/southsykemet',
       bio: "La partie Ombre de SSK, une identité affirmée et une énergie frontale sur scène.",
+      accomplishments: ['Collectif SSK', "Partie Ombre"],
       group: 'SSK',
     },
     {
@@ -94,6 +107,7 @@ const Artists = () => {
       image: '/images/murasaki.webp',
       link: 'https://linktr.ee/southsykemet',
       bio: "L'union des extrêmes, une approche artistique hybride entre intensité et finesse.",
+      accomplishments: ['Collectif SSK', "L'union des extrêmes"],
       group: 'SSK',
     },
   ]
@@ -155,6 +169,13 @@ const Artists = () => {
                 >
                   <div className="artist-expand-content">
                     <p>{artist.bio}</p>
+                    {artist.accomplishments && (
+                      <ul className="artist-expand-list">
+                        {artist.accomplishments.map((item) => (
+                          <li key={`${artist.id}-${item}`}>{item}</li>
+                        ))}
+                      </ul>
+                    )}
                     <a href={artist.link} target="_blank" rel="noopener noreferrer" className="group-link">
                       Linktree →
                     </a>

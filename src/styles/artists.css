@@ -77,7 +77,7 @@
 
   .artist-cards-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.15rem;
     max-width: 1100px;
     margin: 0 auto;
@@ -311,6 +311,16 @@
   .artist-expand-content p {
     margin: 0 0 0.9rem;
   }
+
+  .artist-expand-list {
+    margin: 0 0 1rem;
+    padding-left: 1rem;
+    color: var(--starlight-subtle);
+  }
+
+  .artist-expand-list li {
+    margin-bottom: 0.35rem;
+  }
   
   /* Responsive */
   @media (max-width: 768px) {
@@ -322,13 +332,6 @@
       font-size: 5rem;
     }
   
-    .artist-cards-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
-  }
-
-  @media (max-width: 680px) {
     .artist-cards-grid {
       grid-template-columns: 1fr;
     }

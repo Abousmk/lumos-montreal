@@ -63,7 +63,7 @@ export function ExpandableCard({
                   </h3>
                 </div>
                 <button type="button" className="exp-close" onClick={() => setActive(false)} aria-label="Fermer">
-                  <span aria-hidden="true">+</span>
+                  <span aria-hidden="true">&times;</span>
                 </button>
               </div>
 

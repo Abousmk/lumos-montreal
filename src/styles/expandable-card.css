@@ -89,7 +89,7 @@
 .exp-overlay {
   position: fixed;
   inset: 0;
-  z-index: 90;
+  z-index: 3000;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(10px);
 }
@@ -97,7 +97,7 @@
 .exp-modalWrap {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 4000;
   display: grid;
   place-items: center;
   padding: 1.25rem;
@@ -105,8 +105,9 @@
 
 .exp-modal {
   width: min(980px, 100%);
-  max-height: min(86vh, 860px);
-  overflow: auto;
+  max-height: min(88vh, 900px);
+  overflow-y: auto;
+  overflow-x: hidden;
   border-radius: 22px;
   background: #0a0e27;
   border: 1px solid rgba(255, 255, 255, 0.10);
@@ -174,14 +175,14 @@
 
 .exp-close:hover {
   background: rgba(255,255,255,0.09);
-  transform: rotate(45deg);
+  transform: scale(1.05);
 }
 
 .exp-close span {
-  font-size: 1.55rem;
+  font-size: 1.7rem;
   line-height: 1;
   display: block;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .exp-modal__content {
