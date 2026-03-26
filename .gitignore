@@ -17,5 +17,5 @@ Thumbs.db
 # Vite
 .vite
 
-# Raw source images (keep only /public/images in git)
-images/
+# Raw source images at repo root (keep /public/images in git)
+/images/
