@@ -12,11 +12,12 @@ const Artists = () => {
       subtitle: "L'Existentialisme Noir",
       image: '/images/kama.webp',
       link: 'https://linktr.ee/quatrelettres',
-      bio: "Rappeur montréalais reconnu pour sa technique incisive et ses récits d'immigration. Figure majeure de la scène émergente montréalaise.",
+      bio: "KaMa est un rappeur montréalais originaire de la RD Congo, fondateur et membre du collectif créatif NESO. Il arrive au Québec à l’âge de 5 ans et grandit dans le quartier Hochelaga-Maisonneuve où il forge son identité artistique.\n\nSa musique se distingue par une maîtrise technique au micro, des textes riches en émotions et une écriture qui mêle récits d’immigration, critique sociale et références sociopolitiques. Son projet OIABM et son travail sur l’EP GEMINI ont confirmé son impact dans la scène émergente.\n\nEn 2025, KaMa est nommé au Gala Dynastie dans la catégorie Artiste Musical de l’année, puis double l’affiche aux Francofolies. Aujourd’hui, il cumule performances live, collaborations et relais médiatiques, avec une direction artistique claire: représenter une nouvelle génération montréalaise.",
       accomplishments: [
         'Nomination Gala Dynastie 2025',
         'Double représentation Francofolies 2025',
         '35 prestations live et 25 relais médiatiques',
+        'Projet OIABM:GEMINI et collaborations scéniques majeures',
       ],
       group: 'Lumos',
     },

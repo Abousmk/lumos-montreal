@@ -310,6 +310,7 @@
 
   .artist-expand-content p {
     margin: 0 0 0.9rem;
+    white-space: pre-line;
   }
 
   .artist-expand-list {
