@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import '../styles/collaborations.css'
 
 const Collaborations = () => {
@@ -7,43 +6,30 @@ const Collaborations = () => {
     name: '',
     email: '',
     serviceType: '',
-    message: ''
+    message: '',
   })
 
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const serviceTypes = [
-    'Événementiel',
-    'Booking artiste',
-    'Production musicale',
-    'Partenariat',
-    'Autre'
-  ]
+  const serviceTypes = ['Événementiel', 'Booking artiste', 'Production musicale', 'Partenariat', 'Autre']
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
-    // TODO: Intégration G Suite / EmailJS quand Gmail ready
-    console.log('Form submitted:', formData)
-    
-    // Simulation de soumission
     setIsSubmitted(true)
-    
-    // Reset après 3 secondes
     setTimeout(() => {
       setIsSubmitted(false)
       setFormData({
         name: '',
         email: '',
         serviceType: '',
-        message: ''
+        message: '',
       })
     }, 3000)
   }
@@ -51,37 +37,24 @@ const Collaborations = () => {
   return (
     <section id="collaborations" className="collaborations-section">
       <div className="container">
-        <motion.div 
-          className="section-header"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="section-header lumos-reveal">
           <span className="section-number">03</span>
           <h2 className="section-title">Collaborations</h2>
-          <p className="section-subtitle">
-            Travaillons ensemble sur votre prochain projet
-          </p>
-        </motion.div>
+          <p className="section-subtitle">Travaillons ensemble sur votre prochain projet</p>
+        </div>
 
         <div className="collaborations-content">
-          <motion.div 
-            className="collab-info"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div className="collab-info lumos-reveal" style={{ animationDelay: '0.06s' }}>
             <h3 className="collab-info-title">
-              Mettre en lumière<br />
+              Mettre en lumière
+              <br />
               <span className="highlight">votre vision</span>
             </h3>
-            
+
             <p className="collab-info-text">
-              Que vous soyez un artiste émergent cherchant à organiser un showcase, 
-              une marque souhaitant sponsoriser un événement, ou un promoteur avec 
-              une idée innovante, nous sommes là pour collaborer.
+              Que vous soyez un artiste émergent cherchant à organiser un showcase, une marque souhaitant
+              sponsoriser un événement, ou un promoteur avec une idée innovante, nous sommes là pour
+              collaborer.
             </p>
 
             <div className="collab-services">
@@ -120,19 +93,13 @@ const Collaborations = () => {
 
             <div className="collab-note">
               <p>
-                <strong>Note:</strong> Ce formulaire est actuellement en mode démo. 
-                L'intégration avec Google Calendar et Gmail sera activée prochainement.
+                <strong>Note:</strong> Ce formulaire est actuellement en mode démo. L'intégration avec
+                Google Calendar et Gmail sera activée prochainement.
               </p>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div 
-            className="collab-form-wrapper"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div className="collab-form-wrapper lumos-reveal" style={{ animationDelay: '0.1s' }}>
             {!isSubmitted ? (
               <form className="collab-form" onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -187,7 +154,7 @@ const Collaborations = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows="6"
+                    rows={6}
                     placeholder="Décrivez votre projet..."
                   />
                 </div>
@@ -204,7 +171,7 @@ const Collaborations = () => {
                 <p>Nous reviendrons vers vous sous peu.</p>
               </div>
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

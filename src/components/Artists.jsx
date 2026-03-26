@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import '../styles/artists.css'
 
 const Artists = () => {
@@ -12,10 +11,10 @@ const Artists = () => {
       achievements: [
         'Nomination Gala Dynastie 2025',
         'Double représentation Francofolies 2025',
-        '35 prestations live, 25 relais médiatiques'
+        '35 prestations live, 25 relais médiatiques',
       ],
       link: 'https://linktr.ee/quatrelettres',
-      image: '/images/kama.jpg'
+      image: '/images/kama.jpg',
     },
     {
       id: 'appart',
@@ -30,10 +29,10 @@ const Artists = () => {
         { name: 'DAMNIBRA', style: 'Sonorités cloud, rythmiques ouest-africaines' },
         { name: 'Ngoundieu', style: 'Hip-hop rétro fusionné au moderne' },
         { name: 'LIL DEEZY', style: 'Sénégalo-canadien bilingue' },
-        { name: 'A.L.O.N.E', style: 'Plume introspective, amour et tristesse' }
+        { name: 'A.L.O.N.E', style: 'Plume introspective, amour et tristesse' },
       ],
       link: 'https://linktr.ee/appart',
-      image: '/images/appart.jpg'
+      image: '/images/appart.jpg',
     },
     {
       id: 'ssk',
@@ -44,45 +43,32 @@ const Artists = () => {
       trinity: [
         { name: 'ORUNMILA', role: 'La partie Divine', color: 'Bleu 🔵' },
         { name: 'FIRELOX/ESHU', role: "La partie de l'Ombre", color: 'Rouge 🔴' },
-        { name: 'MURASAKI', role: "L'Union des extrêmes", color: 'Mauve 🟣' }
+        { name: 'MURASAKI', role: "L'Union des extrêmes", color: 'Mauve 🟣' },
       ],
       quote: 'Cette table ronde qui vous semble si loin, vous y avez votre place!',
       link: 'https://linktr.ee/southsykemet',
-      image: '/images/ssk.jpg'
-    }
+      image: '/images/ssk.jpg',
+    },
   ]
 
   return (
     <section id="artistes" className="artists-section">
       <div className="container">
-        <motion.div 
-          className="section-header"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="section-header lumos-reveal">
           <span className="section-number">01</span>
           <h2 className="section-title">Artistes</h2>
-          <p className="section-subtitle">
-            Représentant la scène émergente montréalaise
-          </p>
-        </motion.div>
+          <p className="section-subtitle">Représentant la scène émergente montréalaise</p>
+        </div>
 
         <div className="artists-grid">
           {artists.map((artist, index) => (
-            <motion.div
+            <div
               key={artist.id}
-              className="artist-card"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className="artist-card lumos-reveal"
+              style={{ animationDelay: `${0.08 + index * 0.1}s` }}
             >
               <div className="artist-image">
-                <div className="image-placeholder">
-                  {artist.name}
-                </div>
+                <div className="image-placeholder">{artist.name}</div>
               </div>
 
               <div className="artist-content">
@@ -117,24 +103,15 @@ const Artists = () => {
                         <strong>{person.name}</strong> - {person.role} ({person.color})
                       </div>
                     ))}
-                    {artist.quote && (
-                      <blockquote className="artist-quote">
-                        "{artist.quote}"
-                      </blockquote>
-                    )}
+                    {artist.quote && <blockquote className="artist-quote">"{artist.quote}"</blockquote>}
                   </div>
                 )}
 
-                <a 
-                  href={artist.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="artist-link"
-                >
+                <a href={artist.link} target="_blank" rel="noopener noreferrer" className="artist-link">
                   Écouter →
                 </a>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

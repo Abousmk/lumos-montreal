@@ -84,6 +84,30 @@
     min-height: 12rem;
   }
 
+  @keyframes lumos-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .lumos-reveal {
+    opacity: 0;
+    animation: lumos-fade-up 0.5s ease-out forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lumos-reveal {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   .stars-static {
     position: absolute;
     inset: 0;

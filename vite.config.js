@@ -5,14 +5,16 @@ export default defineConfig({
   base: '/',
   build: {
     outDir: 'dist',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+      },
+    },
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('three')) return 'three'
-            if (id.includes('framer-motion')) return 'framer-motion'
-            if (id.includes('react-dom') || id.includes('/react/')) return 'react-vendor'
-          }
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
         },
       },
     },

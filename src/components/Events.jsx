@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import '../styles/events.css'
 
 const Events = () => {
@@ -230,19 +229,11 @@ const Events = () => {
   return (
     <section id="evenements" className="events-section">
       <div className="container">
-        <motion.div 
-          className="section-header"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="section-header lumos-reveal">
           <span className="section-number">02</span>
           <h2 className="section-title">Événements</h2>
-          <p className="section-subtitle">
-            Notre parcours depuis 2022
-          </p>
-        </motion.div>
+          <p className="section-subtitle">Notre parcours depuis 2022</p>
+        </div>
 
         {/* Filtres */}
         <div className="events-filters">
@@ -272,19 +263,16 @@ const Events = () => {
             <h3 className="events-group-title">À Venir</h3>
             <div className="events-grid">
               {upcomingEvents.map((event, index) => (
-                <motion.div
+                <div
                   key={event.id}
-                  className={`event-card ${event.type}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className={`event-card lumos-reveal ${event.type}`}
+                  style={{ animationDelay: `${0.06 + index * 0.06}s` }}
                 >
                   <span className="event-type">{event.type === 'lumos' ? 'Lumos' : 'Collaboratif'}</span>
                   <h4 className="event-title">{event.title}</h4>
                   <p className="event-date">{event.date}</p>
                   <p className="event-description">{event.description}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -296,21 +284,18 @@ const Events = () => {
             <h3 className="events-group-title">Événements Passés</h3>
             <div className="events-timeline">
               {pastEvents.map((event, index) => (
-                <motion.div
+                <div
                   key={event.id}
-                  className={`timeline-item ${event.type}`}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                  className={`timeline-item lumos-reveal ${event.type}`}
+                  style={{ animationDelay: `${0.04 + index * 0.04}s` }}
                 >
-                  <div className="timeline-marker"></div>
+                  <div className="timeline-marker" />
                   <div className="timeline-content">
                     <span className="timeline-date">{event.date}</span>
                     <h5 className="timeline-title">{event.title}</h5>
                     <p className="timeline-description">{event.description}</p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

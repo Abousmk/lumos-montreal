@@ -1,123 +1,151 @@
-import React, { useEffect, useState, useRef } from "react"
+import { useEffect, useRef } from 'react'
 
-const getRandomStartPoint = () => {
-  const side = Math.floor(Math.random() * 4)
-  const offset = Math.random() * window.innerWidth
-
-  switch (side) {
-    case 0:
-      return { x: offset, y: 0, angle: 45 }
-    case 1:
-      return { x: window.innerWidth, y: offset, angle: 135 }
-    case 2:
-      return { x: offset, y: window.innerHeight, angle: 225 }
-    case 3:
-      return { x: 0, y: offset, angle: 315 }
-    default:
-      return { x: 0, y: 0, angle: 45 }
-  }
+function randomBetween(a, b) {
+  return a + Math.random() * (b - a)
 }
 
+/**
+ * Canvas 2D — pas de setState à chaque frame (meilleur TBT que l’ancien SVG React).
+ */
 export const ShootingStars = ({
-  minSpeed = 10,
-  maxSpeed = 30,
-  minDelay = 1200,
-  maxDelay = 4200,
-  starColor = "#d4af37",
-  trailColor = "#2d4a7c",
-  starWidth = 10,
-  starHeight = 1,
-  maxStars = 8,
-  className = ""
+  starColor = '#d4af37',
+  trailColor = '#4a6fa5',
+  maxStars = 2,
+  minSpeed = 2,
+  maxSpeed = 4.2,
+  minSpawnMs = 5500,
+  maxSpawnMs = 14000,
 }) => {
-  const [stars, setStars] = useState([])
-  const svgRef = useRef(null)
+  const canvasRef = useRef(null)
 
   useEffect(() => {
-    let timeoutId
-    let isCancelled = false
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const parent = canvas.parentElement
+    if (!parent) return
 
-    const createStar = () => {
-      if (isCancelled) return
-      const { x, y, angle } = getRandomStartPoint()
-      const newStar = {
-        id: `${Date.now()}-${Math.random()}`,
+    const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true })
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.25)
+
+    let stars = []
+    let rafId = 0
+    let spawnTimeoutId = null
+    let lastTime = performance.now()
+    let W = 0
+    let H = 0
+
+    const resize = () => {
+      W = parent.clientWidth
+      H = parent.clientHeight
+      if (W < 1 || H < 1) return
+      canvas.style.width = `${W}px`
+      canvas.style.height = `${H}px`
+      canvas.width = Math.floor(W * dpr)
+      canvas.height = Math.floor(H * dpr)
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+
+    resize()
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(resize) : null
+    ro?.observe(parent)
+
+    const spawnStar = () => {
+      if (stars.length >= maxStars) return
+      const side = Math.floor(Math.random() * 4)
+      let x
+      let y
+      let angleDeg
+      switch (side) {
+        case 0:
+          x = randomBetween(0, W)
+          y = -40
+          angleDeg = 42 + randomBetween(-12, 12)
+          break
+        case 1:
+          x = W + 40
+          y = randomBetween(0, H)
+          angleDeg = 132 + randomBetween(-12, 12)
+          break
+        case 2:
+          x = randomBetween(0, W)
+          y = H + 40
+          angleDeg = 222 + randomBetween(-12, 12)
+          break
+        default:
+          x = -40
+          y = randomBetween(0, H)
+          angleDeg = 312 + randomBetween(-12, 12)
+      }
+      const angle = (angleDeg * Math.PI) / 180
+      stars.push({
         x,
         y,
         angle,
-        scale: 1,
-        speed: Math.random() * (maxSpeed - minSpeed) + minSpeed,
-        distance: 0,
-      }
+        speed: randomBetween(minSpeed, maxSpeed),
+        length: randomBetween(55, 105),
+        width: randomBetween(0.9, 1.5),
+      })
+    }
 
-      setStars((prevStars) => {
-        const nextStars = [...prevStars, newStar]
-        if (nextStars.length <= maxStars) {
-          return nextStars
-        }
-        return nextStars.slice(nextStars.length - maxStars)
+    const scheduleSpawn = () => {
+      clearTimeout(spawnTimeoutId)
+      spawnTimeoutId = window.setTimeout(() => {
+        spawnStar()
+        scheduleSpawn()
+      }, randomBetween(minSpawnMs, maxSpawnMs))
+    }
+
+    const loop = (now) => {
+      const dt = Math.min((now - lastTime) / 16.67, 2.2)
+      lastTime = now
+
+      ctx.clearRect(0, 0, W, H)
+
+      stars = stars.filter((s) => {
+        s.x += Math.cos(s.angle) * s.speed * dt * 7
+        s.y += Math.sin(s.angle) * s.speed * dt * 7
+
+        const lx = Math.cos(s.angle)
+        const ly = Math.sin(s.angle)
+        const x0 = s.x - lx * s.length
+        const y0 = s.y - ly * s.length
+
+        const g = ctx.createLinearGradient(x0, y0, s.x, s.y)
+        g.addColorStop(0, `${trailColor}00`)
+        g.addColorStop(0.4, trailColor)
+        g.addColorStop(1, starColor)
+
+        ctx.strokeStyle = g
+        ctx.lineWidth = s.width
+        ctx.lineCap = 'round'
+        ctx.beginPath()
+        ctx.moveTo(x0, y0)
+        ctx.lineTo(s.x, s.y)
+        ctx.stroke()
+
+        return s.x > -100 && s.x < W + 100 && s.y > -100 && s.y < H + 100
       })
 
-      const randomDelay = Math.random() * (maxDelay - minDelay) + minDelay
-      timeoutId = setTimeout(createStar, randomDelay)
+      rafId = requestAnimationFrame(loop)
     }
 
-    createStar()
+    rafId = requestAnimationFrame(loop)
+    spawnTimeoutId = window.setTimeout(() => {
+      spawnStar()
+      scheduleSpawn()
+    }, 800)
 
     return () => {
-      isCancelled = true
-      if (timeoutId) {
-        clearTimeout(timeoutId)
-      }
+      cancelAnimationFrame(rafId)
+      clearTimeout(spawnTimeoutId)
+      ro?.disconnect()
     }
-  }, [minSpeed, maxSpeed, minDelay, maxDelay, maxStars])
-
-  useEffect(() => {
-    let animationFrame
-
-    const animate = () => {
-      setStars((prevStars) =>
-        prevStars
-          .map((prevStar) => {
-            const newX = prevStar.x + prevStar.speed * Math.cos((prevStar.angle * Math.PI) / 180)
-            const newY = prevStar.y + prevStar.speed * Math.sin((prevStar.angle * Math.PI) / 180)
-            const newDistance = prevStar.distance + prevStar.speed
-            const newScale = 1 + newDistance / 100
-
-            const isOutOfBounds =
-              newX < -40 ||
-              newX > window.innerWidth + 40 ||
-              newY < -40 ||
-              newY > window.innerHeight + 40
-
-            if (isOutOfBounds) {
-              return null
-            }
-
-            return {
-              ...prevStar,
-              x: newX,
-              y: newY,
-              distance: newDistance,
-              scale: newScale,
-            }
-          })
-          .filter(Boolean)
-      )
-
-      animationFrame = requestAnimationFrame(animate)
-    }
-
-    animationFrame = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(animationFrame)
-  }, [])
-
-  const gradientId = useRef(`gradient-${Math.random().toString(36).slice(2)}`).current
+  }, [starColor, trailColor, maxStars, minSpeed, maxSpeed, minSpawnMs, maxSpawnMs])
 
   return (
-    <svg
-      ref={svgRef}
-      className={className}
+    <canvas
+      ref={canvasRef}
+      aria-hidden
       style={{
         position: 'absolute',
         inset: 0,
@@ -125,26 +153,6 @@ export const ShootingStars = ({
         height: '100%',
         pointerEvents: 'none',
       }}
-    >
-      {stars.map((star) => (
-        <rect
-          key={star.id}
-          x={star.x}
-          y={star.y}
-          width={starWidth * star.scale}
-          height={starHeight}
-          fill={`url(#${gradientId})`}
-          transform={`rotate(${star.angle}, ${
-            star.x + (starWidth * star.scale) / 2
-          }, ${star.y + starHeight / 2})`}
-        />
-      ))}
-      <defs>
-        <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: trailColor, stopOpacity: 0 }} />
-          <stop offset="100%" style={{ stopColor: starColor, stopOpacity: 1 }} />
-        </linearGradient>
-      </defs>
-    </svg>
+    />
   )
 }

@@ -7,7 +7,65 @@
     width: 100%;
     z-index: 1000;
     padding: 2rem 0;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+    animation: nav-bar-enter 0.45s ease-out both;
+  }
+
+  @keyframes nav-bar-enter {
+    from {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .nav-links-desktop .nav-link {
+    opacity: 0;
+    animation: nav-link-in 0.32s ease-out forwards;
+  }
+
+  .nav-links-desktop .nav-link:nth-child(1) { animation-delay: 0.1s; }
+  .nav-links-desktop .nav-link:nth-child(2) { animation-delay: 0.16s; }
+  .nav-links-desktop .nav-link:nth-child(3) { animation-delay: 0.22s; }
+  .nav-links-desktop .nav-link:nth-child(4) { animation-delay: 0.28s; }
+  .nav-links-desktop .nav-link:nth-child(5) { animation-delay: 0.34s; }
+
+  @keyframes nav-link-in {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .nav-mobile-vertical {
+    animation: nav-mobile-shell 0.4s ease-out both;
+  }
+
+  @keyframes nav-mobile-shell {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .nav-mobile-vertical .nav-mobile-link {
+    opacity: 0;
+    animation: nav-link-in 0.32s ease-out forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .navigation,
+    .nav-links-desktop .nav-link,
+    .nav-mobile-vertical,
+    .nav-mobile-vertical .nav-mobile-link {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
   }
   
   .navigation.scrolled {
