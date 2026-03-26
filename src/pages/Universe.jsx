@@ -23,7 +23,7 @@ export default function Universe() {
 
               <div className="universe-intro__founder">
                 <div className="universe-intro__founderImg">
-                  <img src="/images/Dana.jpg" alt="Dana Kassem" loading="lazy" decoding="async" />
+                  <img src="/images/dana.webp" alt="Dana Kassem" loading="lazy" decoding="async" />
                 </div>
                 <div className="universe-intro__founderCopy">
                   <p className="universe-intro__founderLabel">Fondatrice</p>
@@ -35,7 +35,7 @@ export default function Universe() {
             <div className="universe-intro__media lumos-reveal" style={{ animationDelay: '0.1s' }}>
               <div className="universe-intro__imageWrap">
                 <img
-                  src="/images/cover.jpg"
+                  src="/images/cover.webp"
                   alt="Cover du projet OIABM:GEMINI"
                   loading="eager"
                   decoding="async"

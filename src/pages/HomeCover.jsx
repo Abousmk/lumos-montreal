@@ -64,8 +64,8 @@ export default function HomeCover() {
 
   const floatingImages = useMemo(
     () => [
-      { src: '/images/groupe-1.jpg', className: 'hc-float hc-float--a', alt: 'Lumos — Groupe 1' },
-      { src: '/images/groupe-2.jpg', className: 'hc-float hc-float--b', alt: 'Lumos — Groupe 2' },
+      { src: '/images/groupe-1.webp', className: 'hc-float hc-float--a', alt: 'Lumos — Groupe 1' },
+      { src: '/images/groupe-2.webp', className: 'hc-float hc-float--b', alt: 'Lumos — Groupe 2' },
     ],
     [],
   )
