@@ -6,7 +6,7 @@ const Events = lazy(() => import('../components/Events'))
 
 export default function Universe() {
   return (
-    <main className="universe">
+    <main className="universe night-sky">
       <section className="universe-intro" id="presentation">
         <div className="container">
           <div className="universe-intro__grid">
@@ -20,6 +20,16 @@ export default function Universe() {
               <p className="universe-intro__lead">
                 Notre mission: <strong>mettre en lumière</strong> votre vision et votre public.
               </p>
+
+              <div className="universe-intro__founder">
+                <div className="universe-intro__founderImg">
+                  <img src="/images/Dana.jpg" alt="Dana Kassem" loading="lazy" decoding="async" />
+                </div>
+                <div className="universe-intro__founderCopy">
+                  <p className="universe-intro__founderLabel">Fondatrice</p>
+                  <p className="universe-intro__founderName">Dana Kassem</p>
+                </div>
+              </div>
             </div>
 
             <div className="universe-intro__media lumos-reveal" style={{ animationDelay: '0.1s' }}>

@@ -6,7 +6,7 @@ const Collaborations = lazy(() => import('../components/Collaborations'))
 
 export default function Media() {
   return (
-    <main className="media">
+    <main className="media night-sky">
       <Suspense fallback={<div className="lazy-section-fallback" aria-hidden />}>
         <Interviews />
       </Suspense>

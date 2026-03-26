@@ -56,9 +56,14 @@
     gap: 2.25rem;
   }
 
-  .artist-groups > * {
+  /* Prevent group cards overlapping each other on hover */
+  .artist-groups > div {
     position: relative;
     z-index: 0;
+  }
+
+  .artist-groups > div:hover {
+    z-index: 2;
   }
   
   .artist-card {

@@ -48,30 +48,7 @@
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
-    background: #0a0e27;
-  }
-
-  /* Identité “nuit étoilée” globale (léger, CSS only) */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.55;
-    background-image:
-      radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.95), transparent),
-      radial-gradient(1.5px 1.5px at 140px 90px, rgba(255, 255, 255, 0.85), transparent),
-      radial-gradient(2px 2px at 280px 40px, rgba(255, 255, 255, 0.9), transparent),
-      radial-gradient(1.5px 1.5px at 60px 170px, rgba(255, 255, 255, 0.8), transparent),
-      radial-gradient(2px 2px at 200px 210px, rgba(255, 255, 255, 0.85), transparent),
-      radial-gradient(1.5px 1.5px at 320px 160px, rgba(255, 255, 255, 0.75), transparent),
-      radial-gradient(2px 2px at 90px 280px, rgba(255, 255, 255, 0.8), transparent),
-      radial-gradient(1.5px 1.5px at 250px 300px, rgba(255, 255, 255, 0.78), transparent),
-      radial-gradient(1px 1px at 180px 120px, rgba(255, 255, 255, 0.75), transparent);
-    background-size: 360px 360px;
-    animation: twinkle 3.2s ease-in-out infinite;
-    mix-blend-mode: screen;
+    background: transparent;
   }
 
   #root,
@@ -85,6 +62,51 @@
     position: relative;
     z-index: 1;
     background: transparent;
+  }
+
+  /* Night sky theme — reusable background layer */
+  .night-sky {
+    position: relative;
+    background: #0a0e27;
+    overflow: hidden;
+  }
+
+  .night-sky::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.75;
+    background-image:
+      radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.95), transparent),
+      radial-gradient(1.5px 1.5px at 140px 90px, rgba(255, 255, 255, 0.9), transparent),
+      radial-gradient(2px 2px at 280px 40px, rgba(255, 255, 255, 0.95), transparent),
+      radial-gradient(1.5px 1.5px at 60px 170px, rgba(255, 255, 255, 0.85), transparent),
+      radial-gradient(2px 2px at 200px 210px, rgba(255, 255, 255, 0.9), transparent),
+      radial-gradient(1.5px 1.5px at 320px 160px, rgba(255, 255, 255, 0.85), transparent),
+      radial-gradient(2px 2px at 90px 280px, rgba(255, 255, 255, 0.9), transparent),
+      radial-gradient(1.5px 1.5px at 250px 300px, rgba(255, 255, 255, 0.85), transparent);
+    background-size: 360px 360px;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+
+  .night-sky::after {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(900px 650px at 25% 35%, rgba(74, 111, 165, 0.22), transparent 70%),
+      radial-gradient(900px 650px at 75% 65%, rgba(212, 175, 55, 0.12), transparent 70%),
+      radial-gradient(700px 500px at 50% 80%, rgba(45, 74, 124, 0.18), transparent 70%);
+    filter: saturate(1.05);
+  }
+
+  .night-sky > * {
+    position: relative;
+    z-index: 1;
   }
 
   .body-zone {
