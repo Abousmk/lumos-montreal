@@ -6,7 +6,11 @@ export const translations = {
         collaborations: 'COLLABORATIONS',
         events: 'ÉVÉNEMENTS',
         interviews: 'ENTREVUES',
-        articles: 'ARTICLES'
+        articles: 'ARTICLES',
+        universe: 'UNIVERS',
+        lumos: 'LUMOS',
+        home: 'ACCUEIL',
+        media: 'MÉDIAS',
       },
   
       // Hero
@@ -15,6 +19,21 @@ export const translations = {
         title2: 'Née à Montréal',
         subtitle: 'Mettre en lumière la scène émergente',
         scrollDown: 'SCROLL DOWN'
+      },
+
+      homeCover: {
+        title: 'L’Univers Lumos',
+        subtitle: 'Agence événementielle hip-hop née à Montréal. Mettre en lumière la scène émergente.',
+        cta: 'Explorez l’univers',
+      },
+
+      universe: {
+        title: 'Site web Lumos',
+        lead1:
+          'Fondée par la productrice Dana Kassem, l’Agence Lumos Montréal s’impose comme un acteur incontournable de la scène musicale indépendante. Depuis plusieurs années, l’agence se distingue par des concepts originaux qui mettent en valeur la créativité montréalaise.',
+        lead2: 'Notre mission: mettre en lumière votre vision et votre public.',
+        founderLabel: 'Fondatrice',
+        listenProject: 'Écouter le projet (hyperfollow)',
       },
   
       // Artists
@@ -62,6 +81,8 @@ export const translations = {
         sectionNumber: '03',
         title: 'Collaborations',
         subtitle: 'Travaillons ensemble sur votre prochain projet',
+        calendarTitle: 'Prendre un rendez-vous',
+        calendarSubtitle: 'Choisissez un créneau directement via notre calendrier Google.',
         infoTitle1: 'Mettre en lumière',
         infoTitle2: 'votre vision',
         infoText: "Que vous soyez un artiste émergent cherchant à organiser un showcase, une marque souhaitant sponsoriser un événement, ou un promoteur avec une idée innovante, nous sommes là pour collaborer.",
@@ -115,7 +136,11 @@ export const translations = {
         collaborations: 'COLLABORATIONS',
         events: 'EVENTS',
         interviews: 'INTERVIEWS',
-        articles: 'ARTICLES'
+        articles: 'ARTICLES',
+        universe: 'UNIVERSE',
+        lumos: 'LUMOS',
+        home: 'HOME',
+        media: 'MEDIA',
       },
   
       // Hero
@@ -124,6 +149,21 @@ export const translations = {
         title2: 'Born in Montreal',
         subtitle: 'Shining a light on the emerging scene',
         scrollDown: 'SCROLL DOWN'
+      },
+
+      homeCover: {
+        title: 'The Lumos Universe',
+        subtitle: 'A hip-hop event agency born in Montreal. Shining a light on the emerging scene.',
+        cta: 'Explore the universe',
+      },
+
+      universe: {
+        title: 'Lumos website',
+        lead1:
+          'Founded by producer Dana Kassem, Lumos Montréal has become a key player in the independent music scene. For years, the agency has stood out through original concepts that highlight Montreal creativity.',
+        lead2: 'Our mission: shine a light on your vision and your audience.',
+        founderLabel: 'Founder',
+        listenProject: 'Listen to the project (hyperfollow)',
       },
   
       // Artists
@@ -171,6 +211,8 @@ export const translations = {
         sectionNumber: '03',
         title: 'Collaborations',
         subtitle: "Let's work together on your next project",
+        calendarTitle: 'Book an appointment',
+        calendarSubtitle: 'Pick a time slot directly from our Google Calendar.',
         infoTitle1: 'Shining a light on',
         infoTitle2: 'your vision',
         infoText: "Whether you're an emerging artist looking to organize a showcase, a brand wanting to sponsor an event, or a promoter with an innovative idea, we're here to collaborate.",

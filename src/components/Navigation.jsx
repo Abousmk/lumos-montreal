@@ -11,11 +11,11 @@ const Navigation = () => {
   const location = useLocation()
 
   const navLinks = [
-    { id: 'home', name: 'Accueil', to: '/' },
-    { id: 'presentation', name: 'Lumos', to: '/univers#presentation' },
-    { id: 'artistes', name: t.nav.artists, to: '/univers#artistes' },
-    { id: 'evenements', name: t.nav.events, to: '/univers#evenements' },
-    { id: 'media', name: 'Médias', to: '/media' },
+    { id: 'home', name: t.nav.home, to: '/' },
+    { id: 'lumos', name: t.nav.lumos, to: '/univers#presentation' },
+    { id: 'universe', name: t.nav.universe, to: '/univers#artistes' },
+    { id: 'media', name: t.nav.media, to: '/media' },
+    { id: 'collaborations', name: t.nav.collaborations, to: '/collaborations' },
   ]
 
   useEffect(() => {
@@ -31,14 +31,22 @@ const Navigation = () => {
             const isVisible =
               rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2
             if (isVisible) {
-              currentSection = sectionId
+              currentSection = sectionId === 'presentation' ? 'lumos' : 'universe'
               break
             }
           }
         }
       } else {
         currentSection =
-          location.pathname === '/' ? 'home' : location.pathname === '/media' ? 'media' : ''
+          location.pathname === '/'
+            ? 'home'
+            : location.pathname === '/media'
+              ? location.hash === '#collaborations'
+                ? 'collaborations'
+                : 'media'
+              : location.pathname === '/collaborations'
+                ? 'collaborations'
+              : ''
       }
       setActiveSection(currentSection)
       scrollTicking.current = false
@@ -54,7 +62,7 @@ const Navigation = () => {
     updateFromScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [location.pathname])
+  }, [location.pathname, location.hash])
 
   useEffect(() => {
     if (!location.hash) return

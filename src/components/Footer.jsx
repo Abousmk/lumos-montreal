@@ -1,28 +1,30 @@
 import { ShootingStars } from './ShootingStars'
+import { useLanguage } from '../LanguageContext'
 import '../styles/footer.css'
 
 const Footer = () => {
+  const { t, language } = useLanguage()
   const currentYear = new Date().getFullYear()
+  const pick = (fr, en) => (language === 'en' ? en : fr)
 
   const quickLinks = [
-    { name: 'Artistes', href: '#artistes' },
-    { name: 'Événements', href: '#evenements' },
-    { name: 'Collaborations', href: '#collaborations' },
-    { name: 'Entrevues', href: '#entrevues' },
-    { name: 'Articles', href: '#articles' },
-    { name: 'Contact', href: '#contact' },
+    { name: t.nav.home, href: '/' },
+    { name: t.nav.lumos, href: '/univers#presentation' },
+    { name: t.nav.universe, href: '/univers#artistes' },
+    { name: t.nav.media, href: '/media' },
+    { name: t.nav.collaborations, href: '/collaborations' },
   ]
 
   const socialLinks = [
-    { name: 'Instagram', url: '#' },
-    { name: 'Facebook', url: '#' },
-    { name: 'YouTube', url: '#' },
+    { name: 'Instagram', url: 'https://instagram.com/lumosmtl' },
+    { name: 'Facebook', url: 'https://facebook.com/lumosmtl' },
+    { name: 'YouTube', url: 'https://youtube.com/@lumosmtl' },
     { name: 'Spotify', url: 'https://hyperfollow.com/lumosmtl' },
   ]
 
   const artists = [
     { name: 'KaMa', url: 'https://linktr.ee/quatrelettres' },
-    { name: 'Collectif APPART', url: '#' },
+    { name: 'APPART', url: 'https://linktr.ee/appart' },
     { name: 'SSK', url: 'https://linktr.ee/southsykemet' },
   ]
 
@@ -47,15 +49,12 @@ const Footer = () => {
                 lumos
                 <span className="logo-location">montréal</span>
               </h3>
-              <p className="footer-tagline">Mettre en lumière la scène émergente</p>
-              <p className="footer-description">
-                Agence événementielle spécialisée dans la promotion de la culture hip-hop montréalaise
-                depuis 2022.
-              </p>
+              <p className="footer-tagline">{t.footer.tagline}</p>
+              <p className="footer-description">{t.footer.description}</p>
             </div>
 
             <div className="footer-col lumos-reveal" style={{ animationDelay: '0.1s' }}>
-              <h4 className="footer-title">Navigation</h4>
+              <h4 className="footer-title">{t.footer.navigation}</h4>
               <ul className="footer-links">
                 {quickLinks.map((link) => (
                   <li key={link.name}>
@@ -66,7 +65,7 @@ const Footer = () => {
             </div>
 
             <div className="footer-col lumos-reveal" style={{ animationDelay: '0.15s' }}>
-              <h4 className="footer-title">Nos Artistes</h4>
+              <h4 className="footer-title">{t.footer.ourArtists}</h4>
               <ul className="footer-links">
                 {artists.map((artist) => (
                   <li key={artist.name}>
@@ -79,7 +78,7 @@ const Footer = () => {
             </div>
 
             <div className="footer-col lumos-reveal" style={{ animationDelay: '0.2s' }}>
-              <h4 className="footer-title">Suivez-nous</h4>
+              <h4 className="footer-title">{t.footer.followUs}</h4>
               <ul className="footer-links">
                 {socialLinks.map((social) => (
                   <li key={social.name}>
@@ -90,19 +89,21 @@ const Footer = () => {
                 ))}
               </ul>
               <div className="footer-newsletter">
-                <p className="newsletter-text">Restez informé de nos événements</p>
-                <a href="#contact" className="newsletter-btn">
-                  S'inscrire →
+                <p className="newsletter-text">{t.footer.stayInformed}</p>
+                <a href="/collaborations" className="newsletter-btn">
+                  {t.footer.subscribe}
                 </a>
               </div>
             </div>
           </div>
 
           <div className="footer-bottom lumos-reveal" style={{ animationDelay: '0.25s' }}>
-            <p className="footer-copyright">© {currentYear} Lumos Montréal. Tous droits réservés.</p>
+            <p className="footer-copyright">
+              © {currentYear} {t.footer.copyright}
+            </p>
             <div className="footer-credits">
               <span>
-                Conçu par{' '}
+                {t.footer.designedBy}{' '}
                 <a href="#" target="_blank" rel="noopener noreferrer">
                   Vista Creative
                 </a>
@@ -112,7 +113,12 @@ const Footer = () => {
         </div>
       </div>
 
-      <a href="#home" className="back-to-top lumos-reveal" style={{ animationDelay: '0.3s' }} aria-label="Retour en haut">
+      <a
+        href="#home"
+        className="back-to-top lumos-reveal"
+        style={{ animationDelay: '0.3s' }}
+        aria-label={pick('Retour en haut', 'Back to top')}
+      >
         <span>↑</span>
       </a>
     </footer>

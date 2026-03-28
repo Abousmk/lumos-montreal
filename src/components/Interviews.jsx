@@ -1,15 +1,22 @@
 import '../styles/interviews.css'
+import { useLanguage } from '../LanguageContext'
 
 const Interviews = () => {
+  const { t, language } = useLanguage()
+  const pick = (fr, en) => (language === 'en' ? en : fr)
   const interviews = [
     {
       id: 1,
       platform: 'ONZMTL',
-      title:
+      title: pick(
         'LUMOS x Ngoundieu: Remplir des salles à Montréal, le freestyle pour Bigflo&Oli et +',
-      type: 'Entrevue vidéo',
-      description:
+        'LUMOS x Ngoundieu: Filling venues in Montreal, freestyle for Bigflo&Oli and more',
+      ),
+      type: t.interviews.videoInterview,
+      description: pick(
         "Discussion approfondie sur la vision de Lumos, les défis de l'événementiel hip-hop à Montréal, et les moments marquants de notre parcours.",
+        'In-depth discussion on Lumos vision, challenges in Montreal hip-hop events, and key moments in our journey.',
+      ),
       url: 'https://www.onzemtl.com',
       thumbnail: '/images/interview-onzmtl.jpg',
     },
@@ -17,9 +24,11 @@ const Interviews = () => {
       id: 2,
       platform: 'OPUS',
       title: 'OP.67 - Dana Kassem (LUMOS)',
-      type: 'Podcast',
-      description:
+      type: t.interviews.podcast,
+      description: pick(
         'Dana Kassem partage son parcours entrepreneurial, sa vision pour la scène émergente montréalaise, et les coulisses des événements OIABM et Freshman Triumph.',
+        'Dana Kassem shares her entrepreneurial journey, her vision for Montreal emerging artists, and behind-the-scenes stories from OIABM and Freshman Triumph.',
+      ),
       url: 'https://www.choq.ca/balados/opus/op.67-dana-kassem-lumos',
       thumbnail: '/images/interview-opus.jpg',
     },
@@ -29,9 +38,9 @@ const Interviews = () => {
     <section id="entrevues" className="interviews-section">
       <div className="container">
         <div className="section-header lumos-reveal">
-          <span className="section-number">04</span>
-          <h2 className="section-title">Entrevues</h2>
-          <p className="section-subtitle">Lumos dans les médias</p>
+          <span className="section-number">{t.interviews.sectionNumber}</span>
+          <h2 className="section-title">{t.interviews.title}</h2>
+          <p className="section-subtitle">{t.interviews.subtitle}</p>
         </div>
 
         <div className="interviews-grid">
@@ -57,7 +66,7 @@ const Interviews = () => {
                 <p className="interview-description">{interview.description}</p>
 
                 <div className="interview-cta">
-                  <span>Écouter l'entrevue</span>
+                  <span>{t.interviews.listen}</span>
                   <span className="cta-arrow">→</span>
                 </div>
               </div>
@@ -66,9 +75,9 @@ const Interviews = () => {
         </div>
 
         <div className="interviews-note lumos-reveal" style={{ animationDelay: '0.2s' }}>
-          <p>Vous souhaitez interviewer Lumos ou nos artistes?</p>
+          <p>{t.interviews.noteQuestion}</p>
           <a href="#collaborations" className="contact-link">
-            Contactez-nous →
+            {t.interviews.noteLink}
           </a>
         </div>
       </div>

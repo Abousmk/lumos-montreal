@@ -1,33 +1,31 @@
 import { lazy, Suspense } from 'react'
+import { useLanguage } from '../LanguageContext'
+import ConstellationHeader from '../components/ConstellationHeader'
 import '../styles/universe.css'
 
 const Artists = lazy(() => import('../components/Artists'))
 const Events = lazy(() => import('../components/Events'))
 
 export default function Universe() {
+  const { t } = useLanguage()
   return (
     <main className="universe night-sky">
       <section className="universe-intro" id="presentation">
+        <ConstellationHeader className="universe-intro__constellation" density={2.2} glow={1.12} />
         <div className="container">
           <div className="universe-intro__grid">
             <div className="universe-intro__copy lumos-reveal" style={{ animationDelay: '0.05s' }}>
-              <h1 className="universe-intro__title">Site web Lumos</h1>
-              <p className="universe-intro__lead">
-                Fondée par la productrice Dana Kassem, l’Agence Lumos Montréal s’impose comme un acteur
-                incontournable de la scène musicale indépendante. Depuis plusieurs années, l’agence se
-                distingue par des concepts originaux qui mettent en valeur la créativité montréalaise.
-              </p>
-              <p className="universe-intro__lead">
-                Notre mission: <strong>mettre en lumière</strong> votre vision et votre public.
-              </p>
+              <h1 className="universe-intro__title">{t.universe.title}</h1>
+              <p className="universe-intro__lead">{t.universe.lead1}</p>
+              <p className="universe-intro__lead">{t.universe.lead2}</p>
 
               <div className="universe-intro__founder">
                 <div className="universe-intro__founderImg">
                   <img src="/images/dana.webp" alt="Dana Kassem" loading="lazy" decoding="async" />
-                </div>
-                <div className="universe-intro__founderCopy">
-                  <p className="universe-intro__founderLabel">Fondatrice</p>
-                  <p className="universe-intro__founderName">Dana Kassem</p>
+                  <div className="universe-intro__founderTitle">
+                    <p className="universe-intro__founderLabel">{t.universe.founderLabel}</p>
+                    <p className="universe-intro__founderName">Dana Kassem</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -48,7 +46,7 @@ export default function Universe() {
                   rel="noopener noreferrer"
                   className="universe-intro__link"
                 >
-                  Écouter le projet (hyperfollow) →
+                  {t.universe.listenProject} →
                 </a>
               </div>
             </div>

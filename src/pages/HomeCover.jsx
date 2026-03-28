@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../LanguageContext'
+import ConstellationHeader from '../components/ConstellationHeader'
 import '../styles/home-cover.css'
 
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v))
@@ -61,6 +63,7 @@ function useInteractiveTilt(containerRef) {
 export default function HomeCover() {
   const rootRef = useRef(null)
   useInteractiveTilt(rootRef)
+  const { t } = useLanguage()
 
   const floatingImages = useMemo(
     () => [
@@ -73,6 +76,7 @@ export default function HomeCover() {
   return (
     <main ref={rootRef} className="home-cover" id="home">
       <div className="home-cover__bg" aria-hidden="true" />
+      <ConstellationHeader className="home-cover__constellation" density={3} glow={1.2} />
       <div className="home-cover__grain" aria-hidden="true" />
 
       <div className="home-cover__floats" aria-hidden="true">
@@ -87,14 +91,14 @@ export default function HomeCover() {
           <span className="home-cover__brand-sub">montréal</span>
         </div>
 
-        <h1 className="home-cover__title">L’Univers Lumos</h1>
+        <h1 className="home-cover__title">{t.homeCover.title}</h1>
         <p className="home-cover__subtitle">
-          Agence événementielle hip-hop née à Montréal. Mettre en lumière la scène émergente.
+          {t.homeCover.subtitle}
         </p>
 
         <div className="home-cover__cta">
           <Link to="/univers" className="home-cover__btn">
-            Explorez l’univers <span className="home-cover__btn-arrow">→</span>
+            {t.homeCover.cta} <span className="home-cover__btn-arrow">→</span>
           </Link>
         </div>
       </div>

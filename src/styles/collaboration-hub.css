@@ -1,0 +1,38 @@
+.collaboration-hub {
+  position: relative;
+}
+
+.collaboration-hub__hero {
+  margin-top: 0;
+}
+
+.calendar-booking {
+  position: relative;
+  padding-top: 5.5rem;
+}
+
+.calendar-booking__frameWrap {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.42);
+  background: rgba(10, 14, 39, 0.72);
+}
+
+.calendar-booking__frame {
+  width: 100%;
+  min-height: 680px;
+  border: none;
+  display: block;
+  background: #0a0e27;
+}
+
+@media (max-width: 900px) {
+  .calendar-booking {
+    padding-top: 4.2rem;
+  }
+
+  .calendar-booking__frame {
+    min-height: 620px;
+  }
+}

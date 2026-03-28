@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import '../styles/collaborations.css'
+import { useLanguage } from '../LanguageContext'
 
 const Collaborations = () => {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,7 +13,13 @@ const Collaborations = () => {
 
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const serviceTypes = ['Événementiel', 'Booking artiste', 'Production musicale', 'Partenariat', 'Autre']
+  const serviceTypes = [
+    t.collaborations.serviceEvent,
+    t.collaborations.serviceBooking,
+    t.collaborations.serviceProduction,
+    t.collaborations.servicePartnership,
+    t.collaborations.serviceOther,
+  ]
 
   const handleChange = (e) => {
     setFormData({
@@ -38,54 +46,52 @@ const Collaborations = () => {
     <section id="collaborations" className="collaborations-section">
       <div className="container">
         <div className="section-header lumos-reveal">
-          <span className="section-number">03</span>
-          <h2 className="section-title">Collaborations</h2>
-          <p className="section-subtitle">Travaillons ensemble sur votre prochain projet</p>
+          <span className="section-number">{t.collaborations.sectionNumber}</span>
+          <h2 className="section-title">{t.collaborations.title}</h2>
+          <p className="section-subtitle">{t.collaborations.subtitle}</p>
         </div>
 
         <div className="collaborations-content">
           <div className="collab-info lumos-reveal" style={{ animationDelay: '0.06s' }}>
             <h3 className="collab-info-title">
-              Mettre en lumière
+              {t.collaborations.infoTitle1}
               <br />
-              <span className="highlight">votre vision</span>
+              <span className="highlight">{t.collaborations.infoTitle2}</span>
             </h3>
 
             <p className="collab-info-text">
-              Que vous soyez un artiste émergent cherchant à organiser un showcase, une marque souhaitant
-              sponsoriser un événement, ou un promoteur avec une idée innovante, nous sommes là pour
-              collaborer.
+              {t.collaborations.infoText}
             </p>
 
             <div className="collab-services">
-              <h4>Nos services:</h4>
+              <h4>{t.collaborations.servicesTitle}</h4>
               <ul>
                 <li>
                   <span className="service-icon">🎤</span>
                   <div>
-                    <strong>Événementiel</strong>
-                    <p>Conception et production d'événements hip-hop</p>
+                    <strong>{t.collaborations.service1Title}</strong>
+                    <p>{t.collaborations.service1Desc}</p>
                   </div>
                 </li>
                 <li>
                   <span className="service-icon">🎵</span>
                   <div>
-                    <strong>Booking</strong>
-                    <p>Représentation d'artistes émergents</p>
+                    <strong>{t.collaborations.service2Title}</strong>
+                    <p>{t.collaborations.service2Desc}</p>
                   </div>
                 </li>
                 <li>
                   <span className="service-icon">🎹</span>
                   <div>
-                    <strong>Production</strong>
-                    <p>Création de projets musicaux collaboratifs</p>
+                    <strong>{t.collaborations.service3Title}</strong>
+                    <p>{t.collaborations.service3Desc}</p>
                   </div>
                 </li>
                 <li>
                   <span className="service-icon">🤝</span>
                   <div>
-                    <strong>Partenariats</strong>
-                    <p>Collaborations marques et institutions</p>
+                    <strong>{t.collaborations.service4Title}</strong>
+                    <p>{t.collaborations.service4Desc}</p>
                   </div>
                 </li>
               </ul>
@@ -93,8 +99,7 @@ const Collaborations = () => {
 
             <div className="collab-note">
               <p>
-                <strong>Note:</strong> Ce formulaire est actuellement en mode démo. L'intégration avec
-                Google Calendar et Gmail sera activée prochainement.
+                <strong>{t.collaborations.noteStrong}</strong> {t.collaborations.noteText}
               </p>
             </div>
           </div>
@@ -103,7 +108,7 @@ const Collaborations = () => {
             {!isSubmitted ? (
               <form className="collab-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label htmlFor="name">Nom complet *</label>
+                  <label htmlFor="name">{t.collaborations.nameLabel}</label>
                   <input
                     type="text"
                     id="name"
@@ -111,12 +116,12 @@ const Collaborations = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    placeholder="Votre nom"
+                    placeholder={t.collaborations.namePlaceholder}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="email">Email *</label>
+                  <label htmlFor="email">{t.collaborations.emailLabel}</label>
                   <input
                     type="email"
                     id="email"
@@ -124,12 +129,12 @@ const Collaborations = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    placeholder="votre@email.com"
+                    placeholder={t.collaborations.emailPlaceholder}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="serviceType">Type de service *</label>
+                  <label htmlFor="serviceType">{t.collaborations.serviceLabel}</label>
                   <select
                     id="serviceType"
                     name="serviceType"
@@ -137,7 +142,7 @@ const Collaborations = () => {
                     onChange={handleChange}
                     required
                   >
-                    <option value="">Sélectionnez un service</option>
+                    <option value="">{t.collaborations.servicePlaceholder}</option>
                     {serviceTypes.map((service) => (
                       <option key={service} value={service}>
                         {service}
@@ -147,7 +152,7 @@ const Collaborations = () => {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="message">Message *</label>
+                  <label htmlFor="message">{t.collaborations.messageLabel}</label>
                   <textarea
                     id="message"
                     name="message"
@@ -155,20 +160,20 @@ const Collaborations = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    placeholder="Décrivez votre projet..."
+                    placeholder={t.collaborations.messagePlaceholder}
                   />
                 </div>
 
                 <button type="submit" className="submit-btn">
-                  Envoyer la demande
+                  {t.collaborations.submitBtn}
                   <span className="btn-arrow">→</span>
                 </button>
               </form>
             ) : (
               <div className="success-message">
                 <div className="success-icon">✓</div>
-                <h3>Message envoyé!</h3>
-                <p>Nous reviendrons vers vous sous peu.</p>
+                <h3>{t.collaborations.successTitle}</h3>
+                <p>{t.collaborations.successText}</p>
               </div>
             )}
           </div>

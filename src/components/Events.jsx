@@ -1,9 +1,67 @@
 import { useState } from 'react'
 import '../styles/events.css'
+import { useLanguage } from '../LanguageContext'
 
 const Events = () => {
   const [filter, setFilter] = useState('all') // all, lumos, collab
   const [showAllPast, setShowAllPast] = useState(false)
+  const { t, language } = useLanguage()
+  const isEn = language === 'en'
+
+  const translateDate = (date) => {
+    if (!isEn) return date
+    return date
+      .replace('Juillet', 'July')
+      .replace('Avril', 'April')
+      .replace('Novembre', 'November')
+      .replace('Mai', 'May')
+      .replace('Janvier', 'January')
+      .replace('Décembre', 'December')
+      .replace('Septembre', 'September')
+      .replace('Février', 'February')
+      .replace('Mars', 'March')
+      .replace('Octobre', 'October')
+      .replace(' ou ', ' or ')
+  }
+
+  const translateDescription = (text) => {
+    if (!isEn) return text
+    const map = {
+      '5e édition du festival Once in a Blue Moon': '5th edition of the Once in a Blue Moon festival',
+      '4e édition de la compétition freestyle': '4th edition of the freestyle competition',
+      'Lancement du projet GEMINI - EP 10 morceaux': 'Release of the GEMINI project - 10-track EP',
+      '4e édition du festival': '4th edition of the festival',
+      '3e édition de la compétition': '3rd edition of the competition',
+      '3e édition du festival': '3rd edition of the festival',
+      '2e édition de la compétition': '2nd edition of the competition',
+      '2e édition du festival': '2nd edition of the festival',
+      'Première édition de la compétition': 'First edition of the competition',
+      'Lancement du festival Once in a Blue Moon': 'Launch of the Once in a Blue Moon festival',
+      'Tournoi de soccer de rue': 'Street soccer tournament',
+      'Détails à venir': 'Details coming soon',
+      'Concert en collaboration': 'Collaborative concert',
+      'Lancement album Nawfal': 'Nawfal album release',
+      "Session d'écoute exclusive": 'Exclusive listening session',
+      'Lancement album Blues Beldi': 'Blues Beldi album release',
+      'Lancement projet Le Sens des Cartes': 'Release of Le Sens des Cartes project',
+      'Spectacle Ngoundieu': 'Ngoundieu show',
+      'Événement hip-hop collaboratif': 'Collaborative hip-hop event',
+      'Événement Collectif APPART': 'APPART collective event',
+      'Événement créatif collaboratif': 'Collaborative creative event',
+      'Célébration Rive-Sud': 'South Shore celebration',
+      'Premier événement collaboratif': 'First collaborative event',
+    }
+    return map[text] || text
+  }
+
+  const translateTitle = (title) => {
+    if (!isEn) return title
+    return title
+      .replace('(À CONFIRMER)', '(TBA)')
+      .replace('LANCEMENT', 'RELEASE')
+      .replace("SOIRÉE D'ÉCOUTE", 'LISTENING SESSION')
+      .replace("SESSION D'ÉCOUTE", 'LISTENING SESSION')
+  }
 
   const events = [
     // ÉVÉNEMENTS LUMOS
@@ -100,15 +158,15 @@ const Events = () => {
     {
       id: 12,
       type: 'collab',
-      title: 'LANCEMENT XX',
+      title: 'LANCEMENT (À CONFIRMER)',
       date: 'Avril 2026',
       status: 'upcoming',
-      description: 'Lancement à venir'
+      description: 'Détails à venir'
     },
     {
       id: 13,
       type: 'collab',
-      title: 'CONCERT XX',
+      title: 'CONCERT (À CONFIRMER)',
       date: 'Mai 2026',
       status: 'upcoming',
       description: 'Concert en collaboration'
@@ -116,18 +174,18 @@ const Events = () => {
     {
       id: 14,
       type: 'collab',
-      title: 'LANCEMENT XX',
+      title: 'LANCEMENT (À CONFIRMER)',
       date: 'Mars 2026',
       status: 'upcoming',
-      description: 'Lancement à venir'
+      description: 'Détails à venir'
     },
     {
       id: 15,
       type: 'collab',
-      title: 'LANCEMENT XX',
+      title: 'LANCEMENT (À CONFIRMER)',
       date: 'Février 2026',
       status: 'upcoming',
-      description: 'Lancement à venir'
+      description: 'Détails à venir'
     },
     {
       id: 16,
@@ -232,9 +290,9 @@ const Events = () => {
     <section id="evenements" className="events-section">
       <div className="container">
         <div className="section-header lumos-reveal">
-          <span className="section-number">02</span>
-          <h2 className="section-title">Événements</h2>
-          <p className="section-subtitle">Notre parcours depuis 2022</p>
+          <span className="section-number">{t.events.sectionNumber}</span>
+          <h2 className="section-title">{t.events.title}</h2>
+          <p className="section-subtitle">{t.events.subtitle}</p>
         </div>
 
         {/* Filtres */}
@@ -243,26 +301,26 @@ const Events = () => {
             className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
             onClick={() => setFilter('all')}
           >
-            Tous
+            {t.events.filterAll}
           </button>
           <button 
             className={`filter-btn ${filter === 'lumos' ? 'active' : ''}`}
             onClick={() => setFilter('lumos')}
           >
-            Lumos
+            {t.events.filterLumos}
           </button>
           <button 
             className={`filter-btn ${filter === 'collab' ? 'active' : ''}`}
             onClick={() => setFilter('collab')}
           >
-            Collaboratifs
+            {t.events.filterCollab}
           </button>
         </div>
 
         {/* Événements à venir */}
         {upcomingEvents.length > 0 && (
           <div className="events-group">
-            <h3 className="events-group-title">À Venir</h3>
+            <h3 className="events-group-title">{t.events.upcoming}</h3>
             <div className="events-grid">
               {upcomingEvents.map((event, index) => (
                 <div
@@ -270,10 +328,10 @@ const Events = () => {
                   className={`event-card lumos-reveal ${event.type}`}
                   style={{ animationDelay: `${0.06 + index * 0.06}s` }}
                 >
-                  <span className="event-type">{event.type === 'lumos' ? 'Lumos' : 'Collaboratif'}</span>
-                  <h4 className="event-title">{event.title}</h4>
-                  <p className="event-date">{event.date}</p>
-                  <p className="event-description">{event.description}</p>
+                  <span className="event-type">{event.type === 'lumos' ? 'Lumos' : isEn ? 'Collaborative' : 'Collaboratif'}</span>
+                  <h4 className="event-title">{translateTitle(event.title)}</h4>
+                  <p className="event-date">{translateDate(event.date)}</p>
+                  <p className="event-description">{translateDescription(event.description)}</p>
                 </div>
               ))}
             </div>
@@ -283,7 +341,7 @@ const Events = () => {
         {/* Événements passés — timeline compacte */}
         {pastEvents.length > 0 && (
           <div className="past-events-section">
-            <h3 className="events-group-title">Événements Passés</h3>
+            <h3 className="events-group-title">{t.events.past}</h3>
 
             <div className="timeline-container">
               <div className="timeline-line" aria-hidden="true" />
@@ -296,14 +354,14 @@ const Events = () => {
                 >
                   <div className="timeline-dot" aria-hidden="true" />
                   <div className="timeline-item-inner">
-                    <div className="timeline-date">{event.date}</div>
+                    <div className="timeline-date">{translateDate(event.date)}</div>
                     <div className="timeline-content">
-                      <h4 className="timeline-title">{event.title}</h4>
+                      <h4 className="timeline-title">{translateTitle(event.title)}</h4>
                       <p className="timeline-location">
-                        {event.type === 'lumos' ? 'Lumos' : 'Événement collaboratif'}
+                        {event.type === 'lumos' ? 'Lumos' : isEn ? 'Collaborative event' : 'Événement collaboratif'}
                       </p>
                       {event.description && (
-                        <p className="timeline-description">{event.description}</p>
+                        <p className="timeline-description">{translateDescription(event.description)}</p>
                       )}
                     </div>
                   </div>
@@ -319,8 +377,12 @@ const Events = () => {
                 aria-expanded={showAllPast}
               >
                 {showAllPast
-                  ? 'Voir moins'
-                  : `Voir ${pastEvents.length - 4} événements de plus`}
+                  ? isEn
+                    ? 'Show less'
+                    : 'Voir moins'
+                  : isEn
+                    ? `Show ${pastEvents.length - 4} more events`
+                    : `Voir ${pastEvents.length - 4} événements de plus`}
               </button>
             )}
           </div>

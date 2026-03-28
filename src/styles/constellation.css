@@ -1,0 +1,127 @@
+.constellation-header {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  isolation: isolate;
+}
+
+.constellation-header__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: saturate(1.16) contrast(1.08) brightness(1.05);
+}
+
+.constellation-header__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1000px 560px at 45% -12%, rgba(155, 208, 255, 0.34), transparent 62%),
+    radial-gradient(820px 480px at 95% 8%, rgba(146, 186, 255, 0.2), transparent 64%),
+    radial-gradient(900px 520px at 5% 95%, rgba(124, 163, 255, 0.19), transparent 66%),
+    linear-gradient(to bottom, rgba(6, 10, 26, 0.1) 0%, rgba(5, 8, 21, 0.66) 100%);
+}
+
+.constellation-header::before {
+  content: '';
+  position: absolute;
+  inset: -15%;
+  z-index: 0;
+  background:
+    radial-gradient(2px 2px at 8% 22%, rgba(255, 255, 255, 0.65), transparent 65%),
+    radial-gradient(2px 2px at 20% 35%, rgba(210, 234, 255, 0.55), transparent 65%),
+    radial-gradient(2px 2px at 34% 18%, rgba(255, 255, 255, 0.75), transparent 65%),
+    radial-gradient(2px 2px at 47% 42%, rgba(193, 225, 255, 0.54), transparent 65%),
+    radial-gradient(2px 2px at 61% 27%, rgba(255, 255, 255, 0.72), transparent 65%),
+    radial-gradient(2px 2px at 73% 51%, rgba(170, 214, 255, 0.55), transparent 65%),
+    radial-gradient(2px 2px at 88% 31%, rgba(255, 255, 255, 0.72), transparent 65%);
+  animation: constellationDrift 22s linear infinite;
+  opacity: 0.55;
+}
+
+.page-heroHeader {
+  position: relative;
+  min-height: 260px;
+  overflow: hidden;
+}
+
+.page-heroHeader::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 220px;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(to bottom, rgba(10, 14, 39, 0) 0%, rgba(10, 14, 39, 0.75) 55%, #0a0e27 100%);
+}
+
+.page-heroHeader__inner {
+  position: relative;
+  z-index: 1;
+  min-height: 260px;
+  display: flex;
+  align-items: flex-end;
+  padding-top: 7rem;
+  padding-bottom: 2rem;
+}
+
+.page-heroTitle {
+  margin: 0;
+  font-size: clamp(2.4rem, 7vw, 5rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--starlight-white);
+  text-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+}
+
+.home-cover__constellation {
+  z-index: 0;
+  opacity: 0.98;
+  mix-blend-mode: screen;
+}
+
+.universe-intro__constellation {
+  z-index: 0;
+  opacity: 0.96;
+  mix-blend-mode: screen;
+}
+
+/* Remove top seam; spacing handled via padding-top above */
+.media-heroHeader {
+  margin-top: 0;
+}
+
+.media-heroHeader__constellation,
+.collaboration-hub__constellation {
+  opacity: 0.96;
+  mix-blend-mode: screen;
+}
+
+@keyframes constellationDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-1.8%, -1.2%, 0) scale(1.02);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .page-heroHeader,
+  .page-heroHeader__inner {
+    min-height: 200px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .constellation-header::before {
+    animation: none;
+  }
+}

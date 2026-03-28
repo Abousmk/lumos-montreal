@@ -13,6 +13,18 @@
   --my: 0;
 }
 
+.home-cover::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 200px;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(to bottom, transparent 0%, #0a0e27 100%);
+}
+
 .home-cover__bg {
   position: absolute;
   inset: -30%;
@@ -47,6 +59,9 @@
 .home-cover__floats {
   position: absolute;
   inset: 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(2rem, 4vw, 4rem);
   pointer-events: none;
   transform:
     translate3d(calc(var(--mx) * 10px), calc(var(--my) * 10px), 0);
@@ -66,8 +81,8 @@
   transform: rotate(var(--r, 0deg)) translateZ(0);
 }
 
-.hc-float--a { left: -4%; top: 14%; --r: -10deg; }
-.hc-float--b { right: -6%; bottom: 10%; --r: 12deg; }
+.hc-float--a { left: clamp(1.2rem, 4vw, 4rem); top: 14%; --r: -10deg; }
+.hc-float--b { right: clamp(1.2rem, 4vw, 4rem); bottom: 10%; --r: 12deg; }
 
 .home-cover__content {
   position: relative;
@@ -148,8 +163,9 @@
 
 @media (max-width: 768px) {
   .hc-float { width: min(62vw, 420px); opacity: 0.75; }
-  .hc-float--a { left: -14%; top: 10%; }
-  .hc-float--b { right: -16%; bottom: 8%; }
+  .home-cover__floats { padding: 0 1.2rem; }
+  .hc-float--a { left: 1.2rem; top: 10%; }
+  .hc-float--b { right: 1.2rem; bottom: 8%; }
   .home-cover__btn { transform: translateY(12px); }
 }
 

@@ -64,6 +64,26 @@
     background: transparent;
   }
 
+  /* Make pages feel like one continuous canvas */
+  .site-content::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(1100px 700px at 20% 15%, rgba(74, 111, 165, 0.16), transparent 66%),
+      radial-gradient(1000px 680px at 80% 30%, rgba(212, 175, 55, 0.08), transparent 70%),
+      radial-gradient(900px 620px at 55% 85%, rgba(45, 74, 124, 0.12), transparent 72%),
+      linear-gradient(180deg, #050712 0%, #0a0e27 35%, #050712 100%);
+    opacity: 0.95;
+  }
+
+  .site-content > * {
+    position: relative;
+    z-index: 1;
+  }
+
   /* Night sky theme — reusable background layer */
   .night-sky {
     position: relative;
@@ -193,10 +213,64 @@
   }
   
   .section {
-    min-height: 100vh;
-    padding: 10rem 0;
+    min-height: auto;
+    padding: 4rem 0;
     position: relative;
     background: transparent !important;
+  }
+
+  .section + .section {
+    margin-top: 0;
+  }
+
+  .section-navigator {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    z-index: 1100;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border: none;
+    border-radius: 999px;
+    padding: 0.95rem 1.35rem;
+    cursor: pointer;
+    background: var(--gold-primary);
+    color: var(--midnight-deep);
+    font-weight: 700;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  }
+
+  .section-navigator:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(212, 175, 55, 0.58);
+    filter: brightness(1.03);
+  }
+
+  .navigator-arrow {
+    width: 20px;
+    height: 20px;
+    animation: navigator-bounce 2s infinite;
+  }
+
+  @keyframes navigator-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @media (max-width: 768px) {
+    .section-navigator {
+      right: 1.2rem;
+      bottom: 1.2rem;
+      padding: 0.8rem 1rem;
+      font-size: 0.8125rem;
+    }
+
+    .navigator-text {
+      display: none;
+    }
   }
   
   @keyframes twinkle {

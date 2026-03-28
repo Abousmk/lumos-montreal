@@ -24,8 +24,10 @@ export const LanguageProvider = ({ children }) => {
 
   // Sauvegarder quand ça change
   const changeLanguage = (lang) => {
+    console.log('Changing language to:', lang)
     setLanguage(lang)
     localStorage.setItem('lumos-language', lang)
+    window.dispatchEvent(new Event('languagechange'))
   }
 
   const t = translations[language]

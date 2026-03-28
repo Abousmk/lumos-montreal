@@ -1,8 +1,8 @@
 /* ARTISTS SECTION */
 
 .artists-section {
-    min-height: 100vh;
-    padding: 10rem 0;
+    min-height: auto;
+    padding: 6rem 0;
     background: transparent;
     position: relative;
   }
