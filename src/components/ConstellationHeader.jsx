@@ -8,7 +8,6 @@ function easeOutCubic(t) {
 export default function ConstellationHeader({ className = '', density = 1, glow = 1 }) {
   const wrapRef = useRef(null)
   const canvasRef = useRef(null)
-  const runningRef = useRef(true)
   const introStartRef = useRef(0)
   const heroConstellations = useMemo(
     () => [
@@ -156,11 +155,6 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
     }
 
     const draw = (t) => {
-      if (!runningRef.current) {
-        rafId = requestAnimationFrame(draw)
-        return
-      }
-
       pointer.x += (pointer.tx - pointer.x) * 0.06
       pointer.y += (pointer.ty - pointer.y) * 0.06
 
@@ -297,14 +291,6 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
       pointer.ty = 0
     }
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        runningRef.current = !!entry?.isIntersecting
-      },
-      { threshold: 0.01 },
-    )
-    io.observe(root)
-
     let resizeRaf = 0
     const scheduleResize = () => {
       if (resizeRaf) return
@@ -334,7 +320,6 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
       ro?.disconnect()
       root.removeEventListener('pointermove', onMove)
       root.removeEventListener('pointerleave', onLeave)
-      io.disconnect()
     }
   }, [density, glow])
 

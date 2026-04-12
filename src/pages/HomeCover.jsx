@@ -75,8 +75,9 @@ export default function HomeCover() {
 
   return (
     <main ref={rootRef} className="home-cover" id="home">
-      <div className="home-cover__bg" aria-hidden="true" />
-      <ConstellationHeader className="home-cover__constellation" density={3} glow={1.2} />
+      <div className="home-cover__bg" aria-hidden="true">
+        <ConstellationHeader className="home-cover__constellation" density={3} glow={1.2} />
+      </div>
       <div className="home-cover__grain" aria-hidden="true" />
 
       <div className="home-cover__floats" aria-hidden="true">
