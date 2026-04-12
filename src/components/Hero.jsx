@@ -1,8 +1,10 @@
+import ConstellationBackground from './ConstellationBackground'
 import '../styles/hero.css'
 
 const Hero = () => {
   return (
     <section className="hero" id="home">
+      <ConstellationBackground />
       <div className="hero-content">
         <div className="hero-text">
           <h1 className="hero-title">

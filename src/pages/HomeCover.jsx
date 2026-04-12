@@ -78,7 +78,7 @@ export default function HomeCover() {
       <div className="home-cover__bg" aria-hidden="true">
         <div className="home-cover__bg-motion">
           <div className="home-cover__bg-planes" />
-          <ConstellationHeader className="home-cover__constellation" density={3} glow={1.25} />
+          <ConstellationHeader className="home-cover__constellation" density={1.45} glow={1.12} />
         </div>
       </div>
       <div className="home-cover__grain" aria-hidden="true" />

@@ -104,7 +104,7 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
       const { rw, rh } = measure()
       w = Math.floor(rw)
       h = Math.floor(rh)
-      dpr = Math.min(window.devicePixelRatio || 1, 2)
+      dpr = Math.min(window.devicePixelRatio || 1, 1.75)
       canvas.width = Math.floor(w * dpr)
       canvas.height = Math.floor(h * dpr)
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
@@ -112,7 +112,7 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
       stars.length = 0
       edges.length = 0
       landmarks.length = 0
-      const count = Math.max(48, Math.floor((w * h) / 24000) * density)
+      const count = Math.max(40, Math.floor((w * h) / 42000) * density)
 
       for (let i = 0; i < count; i += 1) {
         stars.push({
@@ -342,11 +342,30 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
       }
     }
 
-    const loop = (t) => {
+    const runLoop = (t) => {
+      if (document.visibilityState === 'hidden') {
+        rafId = 0
+        return
+      }
       paintFrame(t, { frozen: false })
-      rafId = requestAnimationFrame(loop)
+      rafId = requestAnimationFrame(runLoop)
     }
-    rafId = requestAnimationFrame(loop)
+
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') {
+        cancelAnimationFrame(rafId)
+        rafId = 0
+      } else if (!rafId) {
+        rafId = requestAnimationFrame(runLoop)
+      }
+    }
+
+    document.addEventListener('visibilitychange', onVisibility)
+    if (document.visibilityState === 'hidden') {
+      rafId = 0
+    } else {
+      rafId = requestAnimationFrame(runLoop)
+    }
 
     window.addEventListener('resize', scheduleResize)
     const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(scheduleResize) : null
@@ -356,6 +375,7 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
     root.addEventListener('pointerleave', onLeave, { passive: true })
 
     return () => {
+      document.removeEventListener('visibilitychange', onVisibility)
       cancelAnimationFrame(rafId)
       if (resizeRaf) cancelAnimationFrame(resizeRaf)
       window.removeEventListener('resize', scheduleResize)

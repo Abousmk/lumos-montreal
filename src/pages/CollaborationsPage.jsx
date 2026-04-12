@@ -14,7 +14,7 @@ export default function CollaborationsPage() {
   return (
     <main className="collaboration-hub night-sky">
       <section className="page-heroHeader collaboration-hub__hero">
-        <ConstellationHeader className="collaboration-hub__constellation" density={2.1} glow={1.12} />
+        <ConstellationHeader className="collaboration-hub__constellation" density={1.3} glow={1.04} />
         <div className="container page-heroHeader__inner">
           <h1 className="page-heroTitle">{t.nav.collaborations}</h1>
         </div>

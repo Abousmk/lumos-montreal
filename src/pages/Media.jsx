@@ -11,7 +11,7 @@ export default function Media() {
   return (
     <main className="media night-sky">
       <section className="page-heroHeader media-heroHeader">
-        <ConstellationHeader className="media-heroHeader__constellation" density={2} glow={1.08} />
+        <ConstellationHeader className="media-heroHeader__constellation" density={1.3} glow={1.04} />
         <div className="container page-heroHeader__inner">
           <h1 className="page-heroTitle">{t.nav.media}</h1>
         </div>

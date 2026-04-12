@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import '../styles/interviews.css'
 import { useLanguage } from '../LanguageContext'
 
@@ -76,9 +77,9 @@ const Interviews = () => {
 
         <div className="interviews-note lumos-reveal" style={{ animationDelay: '0.2s' }}>
           <p>{t.interviews.noteQuestion}</p>
-          <a href="#collaborations" className="contact-link">
+          <Link to="/collaborations#rendezvous" className="contact-link">
             {t.interviews.noteLink}
-          </a>
+          </Link>
         </div>
       </div>
     </section>

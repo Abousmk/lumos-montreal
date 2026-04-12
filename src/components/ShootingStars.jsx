@@ -96,6 +96,10 @@ export const ShootingStars = ({
     }
 
     const loop = (now) => {
+      if (document.visibilityState === 'hidden') {
+        rafId = 0
+        return
+      }
       const dt = Math.min((now - lastTime) / 16.67, 2.2)
       lastTime = now
 
@@ -129,6 +133,20 @@ export const ShootingStars = ({
       rafId = requestAnimationFrame(loop)
     }
 
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') {
+        cancelAnimationFrame(rafId)
+        rafId = 0
+        clearTimeout(spawnTimeoutId)
+        spawnTimeoutId = 0
+      } else {
+        lastTime = performance.now()
+        if (!rafId) rafId = requestAnimationFrame(loop)
+        scheduleSpawn()
+      }
+    }
+
+    document.addEventListener('visibilitychange', onVisibility)
     rafId = requestAnimationFrame(loop)
     spawnTimeoutId = window.setTimeout(() => {
       spawnStar()
@@ -136,6 +154,7 @@ export const ShootingStars = ({
     }, 800)
 
     return () => {
+      document.removeEventListener('visibilitychange', onVisibility)
       cancelAnimationFrame(rafId)
       clearTimeout(spawnTimeoutId)
       ro?.disconnect()

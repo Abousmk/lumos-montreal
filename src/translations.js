@@ -95,8 +95,9 @@ export const translations = {
         service3Desc: 'Création de projets musicaux collaboratifs',
         service4Title: 'Partenariats',
         service4Desc: 'Collaborations marques et institutions',
-        noteStrong: 'Note:',
-        noteText: "Ce formulaire est actuellement en mode démo. L'intégration avec Google Calendar et Gmail sera activée prochainement.",
+        noteStrong: 'À savoir',
+        noteText:
+          "Le calendrier reflète nos disponibilités. Les messages envoyés par le formulaire sont transmis à notre équipe ; nous répondons en général sous quelques jours ouvrables.",
         nameLabel: 'Nom complet *',
         namePlaceholder: 'Votre nom',
         emailLabel: 'Email *',
@@ -225,8 +226,9 @@ export const translations = {
         service3Desc: 'Collaborative music project creation',
         service4Title: 'Partnerships',
         service4Desc: 'Brand and institutional collaborations',
-        noteStrong: 'Note:',
-        noteText: "This form is currently in demo mode. Integration with Google Calendar and Gmail will be activated soon.",
+        noteStrong: 'Good to know',
+        noteText:
+          'The calendar reflects our availability. Messages sent through the form go to our team; we usually reply within a few business days.',
         nameLabel: 'Full name *',
         namePlaceholder: 'Your name',
         emailLabel: 'Email *',

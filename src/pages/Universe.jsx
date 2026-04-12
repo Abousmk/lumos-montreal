@@ -11,7 +11,7 @@ export default function Universe() {
   return (
     <main className="universe night-sky">
       <section className="universe-intro" id="presentation">
-        <ConstellationHeader className="universe-intro__constellation" density={2.2} glow={1.12} />
+        <ConstellationHeader className="universe-intro__constellation" density={1.35} glow={1.06} />
         <div className="container">
           <div className="universe-intro__grid">
             <div className="universe-intro__copy lumos-reveal" style={{ animationDelay: '0.05s' }}>

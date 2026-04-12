@@ -169,6 +169,11 @@
   .footer-credits a:hover {
     color: var(--starlight-white);
   }
+
+  .footer-credits-studio {
+    color: var(--starlight-white);
+    font-weight: 600;
+  }
   
   /* Back to Top Button */
   .back-to-top {

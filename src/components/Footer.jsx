@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ShootingStars } from './ShootingStars'
 import { useLanguage } from '../LanguageContext'
 import '../styles/footer.css'
@@ -34,11 +35,11 @@ const Footer = () => {
         <ShootingStars
           starColor="#d4af37"
           trailColor="#4a6fa5"
-          maxStars={2}
+          maxStars={1}
           minSpeed={1.8}
           maxSpeed={3.8}
-          minSpawnMs={6000}
-          maxSpawnMs={16000}
+          minSpawnMs={12000}
+          maxSpawnMs={28000}
         />
       </div>
       <div className="footer-content">
@@ -58,7 +59,7 @@ const Footer = () => {
               <ul className="footer-links">
                 {quickLinks.map((link) => (
                   <li key={link.name}>
-                    <a href={link.href}>{link.name}</a>
+                    <Link to={link.href}>{link.name}</Link>
                   </li>
                 ))}
               </ul>
@@ -90,9 +91,9 @@ const Footer = () => {
               </ul>
               <div className="footer-newsletter">
                 <p className="newsletter-text">{t.footer.stayInformed}</p>
-                <a href="/collaborations" className="newsletter-btn">
+                <Link to="/collaborations" className="newsletter-btn">
                   {t.footer.subscribe}
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -104,23 +105,21 @@ const Footer = () => {
             <div className="footer-credits">
               <span>
                 {t.footer.designedBy}{' '}
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  Vista Creative
-                </a>
+                <span className="footer-credits-studio">Vista Creative</span>
               </span>
             </div>
           </div>
         </div>
       </div>
 
-      <a
-        href="#home"
+      <Link
+        to="/#home"
         className="back-to-top lumos-reveal"
         style={{ animationDelay: '0.3s' }}
         aria-label={pick('Retour en haut', 'Back to top')}
       >
         <span>↑</span>
-      </a>
+      </Link>
     </footer>
   )
 }
