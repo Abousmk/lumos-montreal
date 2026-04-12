@@ -41,7 +41,7 @@ export default function Universe() {
               </div>
               <div className="universe-intro__links">
                 <a
-                  href="https://hyperfollow.com/lumosmtl"
+                  href="https://open.spotify.com/artist/3TIyXQ8uJy6XogcktOmykJ"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="universe-intro__link"

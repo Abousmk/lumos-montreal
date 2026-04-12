@@ -17,15 +17,21 @@ const Footer = () => {
   ]
 
   const socialLinks = [
-    { name: 'Instagram', url: 'https://instagram.com/lumosmtl' },
-    { name: 'Facebook', url: 'https://facebook.com/lumosmtl' },
-    { name: 'YouTube', url: 'https://youtube.com/@lumosmtl' },
-    { name: 'Spotify', url: 'https://hyperfollow.com/lumosmtl' },
+    { name: 'Instagram', url: 'https://www.instagram.com/lumos.mtl/' },
+    { name: 'TikTok', url: 'https://www.tiktok.com/@lumos.mtl' },
+    { name: 'X', url: 'https://x.com/LumosMtl' },
+    { name: 'Facebook', url: 'https://www.facebook.com/lumos.mtl' },
+    { name: 'YouTube', url: 'https://www.youtube.com/@AgenceLumosMontr%C3%A9al' },
+    {
+      name: pick('YouTube Musique', 'YouTube Music'),
+      url: 'https://music.youtube.com/playlist?list=OLAK5uy_lJ8iIvf8fSSjBNnTO6VfWADgqMBo-Yzr4',
+    },
+    { name: 'Spotify', url: 'https://open.spotify.com/artist/3TIyXQ8uJy6XogcktOmykJ' },
   ]
 
   const artists = [
     { name: 'KaMa', url: 'https://linktr.ee/quatrelettres' },
-    { name: 'APPART', url: 'https://linktr.ee/appart' },
+    { name: 'APPART', url: 'https://www.youtube.com/@apparttv' },
     { name: 'SSK', url: 'https://linktr.ee/southsykemet' },
   ]
 

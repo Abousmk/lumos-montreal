@@ -18,7 +18,7 @@ const Blog = () => {
       ),
       date: pick('8 Novembre 2025', 'November 8, 2025'),
       image: '/images/blog-gemini.jpg',
-      link: 'https://hyperfollow.com/lumosmtl',
+      link: 'https://open.spotify.com/artist/3TIyXQ8uJy6XogcktOmykJ',
     },
     {
       id: 2,
@@ -30,7 +30,7 @@ const Blog = () => {
       ),
       date: pick('5 Juillet 2025', 'July 5, 2025'),
       image: '/images/blog-oiabm4.jpg',
-      link: 'https://hyperfollow.com/lumosmtl',
+      link: 'https://open.spotify.com/artist/3TIyXQ8uJy6XogcktOmykJ',
     },
     {
       id: 3,
@@ -42,7 +42,7 @@ const Blog = () => {
       ),
       date: pick('15 Mars 2025', 'March 15, 2025'),
       image: '/images/blog-kama.jpg',
-      link: 'https://hyperfollow.com/lumosmtl',
+      link: 'https://open.spotify.com/artist/3TIyXQ8uJy6XogcktOmykJ',
     },
     {
       id: 4,
@@ -57,7 +57,7 @@ const Blog = () => {
       ),
       date: pick('5 Septembre 2024', 'September 5, 2024'),
       image: '/images/blog-ngoundieu.jpg',
-      link: 'https://hyperfollow.com/lumosmtl',
+      link: 'https://open.spotify.com/artist/3TIyXQ8uJy6XogcktOmykJ',
     },
     {
       id: 5,
@@ -69,7 +69,7 @@ const Blog = () => {
       ),
       date: pick('2 Mai 2024', 'May 2, 2024'),
       image: '/images/blog-freshman.jpg',
-      link: 'https://hyperfollow.com/lumosmtl',
+      link: 'https://open.spotify.com/artist/3TIyXQ8uJy6XogcktOmykJ',
     },
     {
       id: 6,
@@ -81,7 +81,7 @@ const Blog = () => {
       ),
       date: pick('20 Mars 2024', 'March 20, 2024'),
       image: '/images/blog-ssk.jpg',
-      link: 'https://hyperfollow.com/lumosmtl',
+      link: 'https://open.spotify.com/artist/3TIyXQ8uJy6XogcktOmykJ',
     },
   ]
 
