@@ -104,11 +104,58 @@
     color: var(--gold-primary);
     transform: translateX(5px);
   }
+
+  /* Réseaux — grille d’icônes (compact, lisible) */
+  .footer-col--social .footer-title {
+    margin-bottom: 1rem;
+  }
+
+  .footer-social {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-width: 16rem;
+  }
+
+  .footer-social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.625rem;
+    height: 2.625rem;
+    border-radius: 10px;
+    color: rgba(232, 238, 252, 0.78);
+    background: rgba(255, 255, 255, 0.055);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-decoration: none;
+    transition:
+      color 0.2s ease,
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .footer-social-btn:hover {
+    color: var(--gold-primary);
+    background: rgba(212, 175, 55, 0.1);
+    border-color: rgba(212, 175, 55, 0.42);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .footer-social-btn:focus-visible {
+    outline: 2px solid var(--gold-primary);
+    outline-offset: 2px;
+  }
   
   /* Newsletter */
   .footer-newsletter {
-    margin-top: 2rem;
-    padding-top: 2rem;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
   
