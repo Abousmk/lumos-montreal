@@ -7,12 +7,22 @@
   isolation: isolate;
 }
 
-/* Champs d’étoiles CSS : visible même si le canvas échoue (GPU / filtre parent). */
+/* Champs d’étoiles CSS — couche externe (pan lent) + interne (pulse / scintillement visible). */
 .constellation-header__starfield {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  overflow: hidden;
+  will-change: transform;
+  animation: constellationStarfieldPan 22s ease-in-out infinite alternate;
+}
+
+.constellation-header__starfield-inner {
+  position: absolute;
+  inset: -4%;
+  pointer-events: none;
+  will-change: transform, opacity;
   background-image:
     radial-gradient(1.5px 1.5px at 8% 12%, rgba(255, 255, 255, 0.95), transparent),
     radial-gradient(1px 1px at 15% 8%, rgba(200, 230, 255, 0.85), transparent),
@@ -55,26 +65,27 @@
     radial-gradient(1px 1px at 71% 94%, rgba(255, 255, 255, 0.64), transparent),
     radial-gradient(1px 1px at 96% 88%, rgba(255, 255, 255, 0.62), transparent);
   background-size: 100% 100%;
-  animation: constellationStarfieldTwinkle 5.5s ease-in-out infinite alternate,
-    constellationStarfieldDrift 80s linear infinite;
-  opacity: 0.92;
+  animation: constellationStarfieldPulse 2.05s ease-in-out infinite alternate;
 }
 
-.constellation-header__starfield::before {
+.constellation-header__starfield-inner::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(1px 1px at 12% 88%, rgba(255, 255, 255, 0.7), transparent),
-    radial-gradient(1.5px 1.5px at 88% 32%, rgba(255, 255, 255, 0.85), transparent),
-    radial-gradient(1px 1px at 55% 18%, rgba(255, 255, 255, 0.65), transparent),
-    radial-gradient(1px 1px at 33% 91%, rgba(200, 220, 255, 0.7), transparent),
-    radial-gradient(2px 2px at 77% 44%, rgba(255, 255, 255, 0.9), transparent),
-    radial-gradient(1px 1px at 6% 44%, rgba(255, 255, 255, 0.6), transparent),
-    radial-gradient(1px 1px at 94% 56%, rgba(255, 255, 255, 0.68), transparent);
+    radial-gradient(1px 1px at 12% 88%, rgba(255, 255, 255, 0.78), transparent),
+    radial-gradient(1.5px 1.5px at 88% 32%, rgba(255, 255, 255, 0.88), transparent),
+    radial-gradient(1px 1px at 55% 18%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 33% 91%, rgba(200, 220, 255, 0.75), transparent),
+    radial-gradient(2px 2px at 77% 44%, rgba(255, 255, 255, 0.92), transparent),
+    radial-gradient(1px 1px at 6% 44%, rgba(255, 255, 255, 0.65), transparent),
+    radial-gradient(1px 1px at 94% 56%, rgba(255, 255, 255, 0.72), transparent),
+    radial-gradient(1.5px 1.5px at 40% 8%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 62% 92%, rgba(220, 235, 255, 0.7), transparent);
   background-size: 100% 100%;
-  animation: constellationStarfieldTwinkle 7.2s ease-in-out infinite alternate-reverse;
-  opacity: 0.75;
+  animation: constellationStarfieldPulse 2.85s ease-in-out infinite alternate-reverse;
+  animation-delay: -0.7s;
+  opacity: 0.85;
   pointer-events: none;
 }
 
@@ -90,11 +101,14 @@
   position: absolute;
   inset: 0;
   z-index: 3;
+  pointer-events: none;
   background:
     radial-gradient(1000px 560px at 45% -12%, rgba(155, 208, 255, 0.28), transparent 62%),
     radial-gradient(820px 480px at 95% 8%, rgba(146, 186, 255, 0.16), transparent 64%),
     radial-gradient(900px 520px at 5% 95%, rgba(124, 163, 255, 0.14), transparent 66%),
     linear-gradient(to bottom, rgba(6, 10, 26, 0.02) 0%, rgba(5, 8, 21, 0.22) 100%);
+  will-change: opacity;
+  animation: constellationVeilBreathe 5.5s ease-in-out infinite alternate;
 }
 
 /* « Planète » douce en haut à droite (comme la ref visuelle), animation GPU */
@@ -116,7 +130,7 @@
   );
   opacity: 0.62;
   mix-blend-mode: screen;
-  animation: constellationMoon 36s ease-in-out infinite;
+  animation: constellationMoon 14s ease-in-out infinite;
   will-change: transform, opacity;
 }
 
@@ -140,7 +154,7 @@
       rgba(120, 72, 140, 0.12) 100%
     ),
     radial-gradient(ellipse 120% 40% at 78% 18%, rgba(160, 200, 255, 0.28), transparent 58%);
-  animation: constellationNebula 52s ease-in-out infinite;
+  animation: constellationNebula 34s ease-in-out infinite;
   will-change: transform;
 }
 
@@ -158,8 +172,8 @@
     radial-gradient(2px 2px at 61% 27%, rgba(255, 255, 255, 0.72), transparent 65%),
     radial-gradient(2px 2px at 73% 51%, rgba(170, 214, 255, 0.55), transparent 65%),
     radial-gradient(2px 2px at 88% 31%, rgba(255, 255, 255, 0.72), transparent 65%);
-  animation: constellationDrift 22s linear infinite;
-  opacity: 0.62;
+  animation: constellationSparkle 2.8s ease-in-out infinite alternate, constellationDrift 18s linear infinite;
+  opacity: 0.72;
 }
 
 .page-heroHeader {
@@ -224,12 +238,23 @@
   mix-blend-mode: normal;
 }
 
+@keyframes constellationSparkle {
+  0% {
+    opacity: 0.38;
+    filter: brightness(0.85);
+  }
+  100% {
+    opacity: 0.95;
+    filter: brightness(1.35);
+  }
+}
+
 @keyframes constellationDrift {
   0% {
     transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate3d(-1.8%, -1.2%, 0) scale(1.02);
+    transform: translate3d(-2.2%, -1.4%, 0) scale(1.04);
   }
   100% {
     transform: translate3d(0, 0, 0) scale(1);
@@ -249,26 +274,32 @@
   }
 }
 
-@keyframes constellationStarfieldTwinkle {
+@keyframes constellationStarfieldPan {
   0% {
-    opacity: 0.72;
-    filter: brightness(0.92);
+    transform: translate3d(-1.4%, -0.9%, 0) scale(1);
   }
   100% {
-    opacity: 1;
-    filter: brightness(1.18);
+    transform: translate3d(1.4%, 1.1%, 0) scale(1.02);
   }
 }
 
-@keyframes constellationStarfieldDrift {
+@keyframes constellationStarfieldPulse {
   0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(-0.8%, -0.5%, 0) scale(1.025);
+    opacity: 0.35;
+    transform: scale(0.97);
   }
   100% {
-    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+    transform: scale(1.045);
+  }
+}
+
+@keyframes constellationVeilBreathe {
+  0% {
+    opacity: 0.86;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -276,11 +307,11 @@
   0%,
   100% {
     transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.55;
+    opacity: 0.52;
   }
   50% {
-    transform: translate3d(-2.5%, 1.5%, 0) scale(1.06);
-    opacity: 0.72;
+    transform: translate3d(-3%, 2%, 0) scale(1.1);
+    opacity: 0.88;
   }
 }
 
@@ -293,9 +324,16 @@
 
 @media (prefers-reduced-motion: reduce) {
   .constellation-header__starfield,
-  .constellation-header__starfield::before {
+  .constellation-header__starfield-inner,
+  .constellation-header__starfield-inner::before {
     animation: none;
+    transform: none;
     opacity: 0.88;
+  }
+
+  .constellation-header__veil {
+    animation: none;
+    opacity: 1;
   }
 
   .constellation-header::before,

@@ -181,8 +181,8 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
       const now = performance.now()
       const introT = frozen ? 1 : Math.min(1, (now - introStartRef.current) / 2400)
       const entryEase = frozen ? 1 : 1 + (1 - easeOutCubic(introT)) * 0.16
-      const breathe = frozen ? 1 : 1 + 0.055 * Math.sin(t * 0.00022)
-      const drift = frozen ? 1 : 1 + 0.038 * Math.sin(t * 0.00017)
+      const breathe = frozen ? 1 : 1 + 0.072 * Math.sin(t * 0.00038)
+      const drift = frozen ? 1 : 1 + 0.048 * Math.sin(t * 0.00028)
       const n = stars.length
 
       for (let i = 0; i < n; i += 1) {
@@ -191,14 +191,14 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
         const par = 0.014 + s.depth * 0.048
         starPx[i] = cx + (s.x - cx) * z + pointer.x * par
         starPy[i] = cy + (s.y - cy) * z + pointer.y * par
-        const twinkle = frozen ? 0.82 : 0.65 + Math.sin(t * 0.0012 * s.sp + s.tw) * 0.35
-        starRScale[i] = s.r * (0.88 + s.depth * 0.22) * (frozen ? 1 : 0.97 + twinkle * 0.06)
+        const twinkle = frozen ? 0.82 : 0.38 + Math.sin(t * 0.0038 * s.sp + s.tw) * 0.62
+        starRScale[i] = s.r * (0.88 + s.depth * 0.22) * (frozen ? 1 : 0.88 + twinkle * 0.2)
         starAlpha[i] = s.a * twinkle
       }
 
       const chainZoom = entryEase * breathe * 1.02
-      const linePulseGlobal = frozen ? 1 : 0.88 + Math.sin(t * 0.0009) * 0.12
-      const energy = frozen ? 0.35 : (t * 0.00015) % 1
+      const linePulseGlobal = frozen ? 1 : 0.78 + Math.sin(t * 0.0016) * 0.22
+      const energy = frozen ? 0.35 : (t * 0.00032) % 1
 
       for (let i = 0; i < edges.length; i += 1) {
         const [aIdx, bIdx, fade] = edges[i]
@@ -365,7 +365,9 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
 
   return (
     <div ref={wrapRef} className={`constellation-header ${className}`}>
-      <div className="constellation-header__starfield" aria-hidden="true" />
+      <div className="constellation-header__starfield" aria-hidden="true">
+        <div className="constellation-header__starfield-inner" />
+      </div>
       <canvas ref={canvasRef} className="constellation-header__canvas" />
       <div className="constellation-header__veil" aria-hidden="true" />
     </div>
