@@ -1,10 +1,15 @@
 import { useEffect, useMemo, useRef } from 'react'
 import '../styles/constellation.css'
 
+function easeOutCubic(t) {
+  return 1 - (1 - t) ** 3
+}
+
 export default function ConstellationHeader({ className = '', density = 1, glow = 1 }) {
   const wrapRef = useRef(null)
   const canvasRef = useRef(null)
   const runningRef = useRef(true)
+  const introStartRef = useRef(0)
   const heroConstellations = useMemo(
     () => [
       [
@@ -63,6 +68,11 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
     const stars = []
     const edges = []
     const landmarks = []
+    const starPx = new Float32Array(4096)
+    const starPy = new Float32Array(4096)
+    const starRScale = new Float32Array(4096)
+    const starAlpha = new Float32Array(4096)
+    let introClockStarted = false
 
     const resize = () => {
       const rect = root.getBoundingClientRect()
@@ -86,6 +96,7 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
           tw: Math.random() * Math.PI * 2,
           sp: 0.3 + Math.random() * 0.9,
           a: 0.35 + Math.random() * 0.5,
+          depth: Math.random(),
         })
       }
 
@@ -115,6 +126,11 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
         }
         landmarks.push(mapped)
       }
+
+      if (!introClockStarted) {
+        introClockStarted = true
+        introStartRef.current = performance.now()
+      }
     }
 
     const draw = (t) => {
@@ -128,39 +144,62 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
 
       ctx.clearRect(0, 0, w, h)
 
+      const cx = w * 0.5
+      const cy = h * 0.5
+      const now = performance.now()
+      const introT = Math.min(1, (now - introStartRef.current) / 1700)
+      const entryEase = 1 + (1 - easeOutCubic(introT)) * 0.085
+      const breathe = 1 + 0.03 * Math.sin(t * 0.00026)
+      const drift = 1 + 0.018 * Math.sin(t * 0.0002)
+      const n = stars.length
+
+      for (let i = 0; i < n; i += 1) {
+        const s = stars[i]
+        const z = entryEase * breathe * (1 + s.depth * 0.16 * drift)
+        const par = 0.01 + s.depth * 0.032
+        starPx[i] = cx + (s.x - cx) * z + pointer.x * par
+        starPy[i] = cy + (s.y - cy) * z + pointer.y * par
+        const twinkle = 0.65 + Math.sin(t * 0.0012 * s.sp + s.tw) * 0.35
+        starRScale[i] = s.r * (0.88 + s.depth * 0.22) * (0.97 + twinkle * 0.06)
+        starAlpha[i] = s.a * twinkle
+      }
+
+      const chainZoom = entryEase * breathe * 1.01
+
       for (let i = 0; i < edges.length; i += 1) {
         const [aIdx, bIdx, fade] = edges[i]
-        const a = stars[aIdx]
-        const b = stars[bIdx]
-        const pulse = 0.75 + Math.sin(t * 0.0016 + a.tw + b.tw) * 0.25
+        const pulse = 0.75 + Math.sin(t * 0.0016 + stars[aIdx].tw + stars[bIdx].tw) * 0.25
         const alpha = (1 - fade) * 0.42 * pulse
         ctx.strokeStyle = `rgba(150, 200, 255, ${alpha.toFixed(3)})`
         ctx.lineWidth = 0.7
         ctx.beginPath()
-        ctx.moveTo(a.x + pointer.x * 0.02, a.y + pointer.y * 0.02)
-        ctx.lineTo(b.x + pointer.x * 0.02, b.y + pointer.y * 0.02)
+        ctx.moveTo(starPx[aIdx], starPy[aIdx])
+        ctx.lineTo(starPx[bIdx], starPy[bIdx])
         ctx.stroke()
       }
 
-      for (let i = 0; i < stars.length; i += 1) {
-        const s = stars[i]
-        const twinkle = 0.65 + Math.sin(t * 0.0012 * s.sp + s.tw) * 0.35
-        const alpha = s.a * twinkle
-        const px = s.x + pointer.x * 0.035
-        const py = s.y + pointer.y * 0.035
+      for (let i = 0; i < n; i += 1) {
+        const px = starPx[i]
+        const py = starPy[i]
+        const rr = starRScale[i]
+        const alpha = starAlpha[i]
+        const haloR = rr * 5.2 * glow
+        const useHalo = haloR >= 2.2 || alpha > 0.38
 
-        const grad = ctx.createRadialGradient(px, py, 0, px, py, s.r * 5.2 * glow)
-        grad.addColorStop(0, `rgba(255,255,255,${Math.min(alpha + 0.25, 1).toFixed(3)})`)
-        grad.addColorStop(0.35, `rgba(170,215,255,${(alpha * 0.8).toFixed(3)})`)
-        grad.addColorStop(1, 'rgba(120,170,255,0)')
-        ctx.fillStyle = grad
-        ctx.beginPath()
-        ctx.arc(px, py, s.r * 5.2 * glow, 0, Math.PI * 2)
-        ctx.fill()
+        if (useHalo) {
+          const grad = ctx.createRadialGradient(px, py, 0, px, py, haloR)
+          grad.addColorStop(0, `rgba(255,255,255,${Math.min(alpha + 0.25, 1).toFixed(3)})`)
+          grad.addColorStop(0.35, `rgba(170,215,255,${(alpha * 0.8).toFixed(3)})`)
+          grad.addColorStop(1, 'rgba(120,170,255,0)')
+          ctx.fillStyle = grad
+          ctx.beginPath()
+          ctx.arc(px, py, haloR, 0, Math.PI * 2)
+          ctx.fill()
+        }
 
         ctx.fillStyle = `rgba(255,255,255,${Math.min(alpha + 0.15, 1).toFixed(3)})`
         ctx.beginPath()
-        ctx.arc(px, py, s.r, 0, Math.PI * 2)
+        ctx.arc(px, py, rr, 0, Math.PI * 2)
         ctx.fill()
       }
 
@@ -172,20 +211,33 @@ export default function ConstellationHeader({ className = '', density = 1, glow 
           const a = chain[i]
           const b = chain[i + 1]
           const pulse = 0.7 + Math.sin(t * 0.001 + a.phase) * 0.3
+          const ax = cx + (a.x - cx) * chainZoom + pointer.x * 0.04
+          const ay = cy + (a.y - cy) * chainZoom + pointer.y * 0.04
+          const bx = cx + (b.x - cx) * chainZoom + pointer.x * 0.04
+          const by = cy + (b.y - cy) * chainZoom + pointer.y * 0.04
           ctx.strokeStyle = `rgba(170, 220, 255, ${(0.35 * pulse).toFixed(3)})`
           ctx.lineWidth = 1.2
           ctx.beginPath()
-          ctx.moveTo(a.x + pointer.x * 0.04, a.y + pointer.y * 0.04)
-          ctx.lineTo(b.x + pointer.x * 0.04, b.y + pointer.y * 0.04)
+          ctx.moveTo(ax, ay)
+          ctx.lineTo(bx, by)
           ctx.stroke()
         }
 
         for (let i = 0; i < chain.length; i += 1) {
-          const n = chain[i]
-          const pulse = 0.65 + Math.sin(t * 0.0015 + n.phase) * 0.35
-          const px = n.x + pointer.x * 0.04
-          const py = n.y + pointer.y * 0.04
-          const rr = n.r * (0.9 + pulse * 0.25)
+          const node = chain[i]
+          const pulse = 0.65 + Math.sin(t * 0.0015 + node.phase) * 0.35
+          const px = cx + (node.x - cx) * chainZoom + pointer.x * 0.04
+          const py = cy + (node.y - cy) * chainZoom + pointer.y * 0.04
+          const rr = node.r * (0.9 + pulse * 0.25)
+          const linePulse = 0.82 + Math.sin(t * 0.0018 + node.phase * 1.3) * 0.18
+          ctx.strokeStyle = `rgba(200, 230, 255, ${(0.22 * linePulse).toFixed(3)})`
+          ctx.lineWidth = 0.85
+          ctx.beginPath()
+          ctx.moveTo(px - rr * 4.2, py)
+          ctx.lineTo(px + rr * 4.2, py)
+          ctx.moveTo(px, py - rr * 4.2)
+          ctx.lineTo(px, py + rr * 4.2)
+          ctx.stroke()
 
           const g = ctx.createRadialGradient(px, py, 0, px, py, rr * 7.6 * glow)
           g.addColorStop(0, `rgba(255,255,255,${Math.min(0.9 * pulse, 1).toFixed(3)})`)
