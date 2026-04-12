@@ -6,8 +6,27 @@ import '../styles/universe.css'
 const Artists = lazy(() => import('../components/Artists'))
 const Events = lazy(() => import('../components/Events'))
 
+const SPOTIFY_ARTIST = 'https://open.spotify.com/artist/3TIyXQ8uJy6XogcktOmykJ'
+const YOUTUBE_MUSIC_PLAYLIST =
+  'https://music.youtube.com/playlist?list=OLAK5uy_lJ8iIvf8fSSjBNnTO6VfWADgqMBo-Yzr4'
+const APPLE_MUSIC_DEFAULT =
+  import.meta.env.VITE_APPLE_MUSIC_URL ||
+  'https://music.apple.com/ca/search?term=LUMOS%20Montreal'
+
 export default function Universe() {
   const { t } = useLanguage()
+
+  const streamButtons = [
+    { key: 'spotify', href: SPOTIFY_ARTIST, label: t.universe.listenSpotify, variant: 'spotify' },
+    { key: 'apple', href: APPLE_MUSIC_DEFAULT, label: t.universe.listenAppleMusic, variant: 'apple' },
+    {
+      key: 'youtube-music',
+      href: YOUTUBE_MUSIC_PLAYLIST,
+      label: t.universe.listenYoutubeMusic,
+      variant: 'ytmusic',
+    },
+  ]
+
   return (
     <main className="universe night-sky">
       <section className="universe-intro" id="presentation">
@@ -39,15 +58,26 @@ export default function Universe() {
                   decoding="async"
                 />
               </div>
-              <div className="universe-intro__links">
-                <a
-                  href="https://open.spotify.com/artist/3TIyXQ8uJy6XogcktOmykJ"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="universe-intro__link"
-                >
-                  {t.universe.listenProject} →
-                </a>
+              <div
+                className="universe-intro__links"
+                role="group"
+                aria-label={t.universe.listenGroupLabel}
+              >
+                {streamButtons.map((btn) => (
+                  <a
+                    key={btn.key}
+                    href={btn.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`universe-intro__stream universe-intro__stream--${btn.variant}`}
+                    title={btn.label}
+                  >
+                    <span className="universe-intro__streamLabel">{btn.label}</span>
+                    <span className="universe-intro__streamArrow" aria-hidden="true">
+                      →
+                    </span>
+                  </a>
+                ))}
               </div>
             </div>
           </div>

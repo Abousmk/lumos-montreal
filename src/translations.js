@@ -33,7 +33,10 @@ export const translations = {
           'Fondée par la productrice Dana Kassem, l’Agence Lumos Montréal s’impose comme un acteur incontournable de la scène musicale indépendante. Depuis plusieurs années, l’agence se distingue par des concepts originaux qui mettent en valeur la créativité montréalaise.',
         lead2: 'Notre mission: mettre en lumière votre vision et votre public.',
         founderLabel: 'Fondatrice',
-        listenProject: 'Écouter sur Spotify',
+        listenGroupLabel: 'Écouter le projet',
+        listenSpotify: 'Écouter sur Spotify',
+        listenAppleMusic: 'Écouter sur Apple Music',
+        listenYoutubeMusic: 'Écouter sur YouTube Musique',
       },
   
       // Artists
@@ -164,7 +167,10 @@ export const translations = {
           'Founded by producer Dana Kassem, Lumos Montréal has become a key player in the independent music scene. For years, the agency has stood out through original concepts that highlight Montreal creativity.',
         lead2: 'Our mission: shine a light on your vision and your audience.',
         founderLabel: 'Founder',
-        listenProject: 'Listen on Spotify',
+        listenGroupLabel: 'Listen to the project',
+        listenSpotify: 'Listen on Spotify',
+        listenAppleMusic: 'Listen on Apple Music',
+        listenYoutubeMusic: 'Listen on YouTube Music',
       },
   
       // Artists

@@ -46,7 +46,7 @@
 
 .universe-intro__lead {
   margin: 0 0 1rem;
-  color: var(--starlight-subtle);
+  color: rgba(228, 234, 248, 0.9);
   font-size: 1.05rem;
   line-height: 1.8;
 }
@@ -81,26 +81,32 @@
   bottom: 0.9rem;
   z-index: 2;
   border-radius: 10px;
-  background: rgba(10, 14, 39, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(4px);
-  padding: 0.5rem 0.8rem 0.55rem;
+  background: rgba(5, 8, 20, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(8px);
+  padding: 0.55rem 0.95rem 0.6rem;
+  box-shadow:
+    0 10px 36px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(212, 175, 55, 0.12);
 }
 
 .universe-intro__founderLabel {
   margin: 0;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--starlight-subtle);
-  font-weight: 700;
+  color: rgba(240, 245, 255, 0.95);
+  font-weight: 800;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75);
 }
 
 .universe-intro__founderName {
-  margin: 0.15rem 0 0;
+  margin: 0.2rem 0 0;
   font-weight: 900;
-  color: var(--starlight-white);
+  color: #ffffff;
   line-height: 1.1;
+  font-size: 1.05rem;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
 }
 
 .universe-intro__imageWrap {
@@ -120,26 +126,64 @@
 .universe-intro__links {
   margin-top: 1rem;
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
   justify-content: flex-start;
+  align-items: stretch;
 }
 
-.universe-intro__link {
+.universe-intro__stream {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.85rem 1.25rem;
+  gap: 0.4rem;
+  padding: 0.65rem 1rem;
   border-radius: 999px;
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  color: var(--gold-primary);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #f0f4ff;
   text-decoration: none;
   font-weight: 700;
-  background: rgba(10, 14, 39, 0.35);
-  transition: transform 0.25s ease, background 0.25s ease;
+  font-size: 0.82rem;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  background: rgba(6, 9, 22, 0.9);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease;
 }
 
-.universe-intro__link:hover {
+.universe-intro__stream:hover {
   transform: translateY(-2px);
-  background: rgba(10, 14, 39, 0.55);
+  color: #ffffff;
+  border-color: rgba(240, 245, 255, 0.5);
+  background: rgba(12, 16, 34, 0.95);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55);
+}
+
+.universe-intro__stream--spotify:hover {
+  border-color: rgba(29, 185, 84, 0.9);
+}
+
+.universe-intro__stream--apple:hover {
+  border-color: rgba(250, 45, 85, 0.85);
+}
+
+.universe-intro__stream--ytmusic:hover {
+  border-color: rgba(255, 69, 69, 0.9);
+}
+
+.universe-intro__streamLabel {
+  text-align: left;
+}
+
+.universe-intro__streamArrow {
+  flex-shrink: 0;
+  opacity: 0.9;
+  font-weight: 800;
 }
 
 .universe-section {
@@ -154,6 +198,17 @@
   .universe-intro__founderImg {
     width: min(72vw, 280px);
     height: min(72vw, 280px);
+  }
+
+  .universe-intro__links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .universe-intro__stream {
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding: 0.7rem 1rem;
   }
 }
 
