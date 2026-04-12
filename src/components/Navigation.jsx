@@ -129,7 +129,7 @@ const Navigation = () => {
             <Link
               key={link.id}
               to={link.to}
-              className="nav-mobile-link"
+              className={`nav-mobile-link ${activeSection === link.id ? 'active' : ''}`}
               style={{ animationDelay: `${0.06 + index * 0.07}s` }}
             >
               <span className="nav-mobile-dot" />
