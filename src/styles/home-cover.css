@@ -25,22 +25,38 @@
   background: linear-gradient(to bottom, transparent 0%, #0a0e27 100%);
 }
 
+/* Le filtre + transform sur un parent du canvas peut vider le canvas sur certains GPU Windows. */
 .home-cover__bg {
   position: absolute;
   inset: -30%;
   z-index: 0;
   isolation: isolate;
+}
+
+.home-cover__bg-motion {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  min-height: 100%;
+  min-height: calc(var(--vh, 1vh) * 100);
+  transform:
+    translate3d(calc(var(--mx) * -12px), calc(var(--my) * -10px), 0)
+    scale(1.02);
+  transition: transform 120ms linear;
+  will-change: transform;
+}
+
+.home-cover__bg-planes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background:
     radial-gradient(900px 700px at 40% 40%, rgba(74, 111, 165, 0.35), transparent 70%),
     radial-gradient(900px 700px at 70% 60%, rgba(212, 175, 55, 0.22), transparent 70%),
     radial-gradient(700px 500px at 50% 80%, rgba(45, 74, 124, 0.25), transparent 70%),
     linear-gradient(135deg, #03040a 0%, #070a1a 50%, #03040a 100%);
   filter: saturate(1.1) contrast(1.05);
-  transform:
-    translate3d(calc(var(--mx) * -12px), calc(var(--my) * -10px), 0)
-    scale(1.02);
-  transition: transform 120ms linear;
-  will-change: transform;
 }
 
 .home-cover__grain {
@@ -174,7 +190,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-cover__bg,
+  .home-cover__bg-motion,
   .home-cover__grain,
   .home-cover__floats {
     transition: none;
